@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Happy Birthday ISH!</title>
+    <!-- Tailwind CSS v3 CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- Google Fonts for styling -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&amp;family=Inter:wght@400;700&amp;family=Montserrat:wght@400;700&amp;display=swap"
+        rel="stylesheet" />
+    <style data-purpose="custom-fonts">
+        .font-script {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .font-sans {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .font-montserrat {
+            font-family: 'Montserrat', sans-serif;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const bokehContainer = document.getElementById('bokeh-container');
+            if (bokehContainer) {
+                const colors = ['#FFCBEB', '#1355B2', '#F5569B'];
+                for (let i = 0; i < 15; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'bokeh-particle';
+                    const size = Math.random() * 60 + 40;
+                    particle.style.width = size + 'px';
+                    particle.style.height = size + 'px';
+                    particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.top = (Math.random() * 50 + 50) + '%';
+                    particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                    particle.style.animationDelay = (Math.random() * 5) + 's';
+                    bokehContainer.appendChild(particle);
+                }
+            }
+
+            const message = document.getElementById('poetic-message');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const words = message.querySelectorAll('span');
+                        words.forEach((word, index) => {
+                            word.style.animationDelay = (index * 0.2) + 's';
+                        });
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            if (message) observer.observe(message);
+        });
+    </script>
+    <style data-purpose="custom-animations">
+        @keyframes pulse-custom {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .pulse-effect {
+            animation: pulse-custom 2s infinite;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #F5569B;
+            top: -20px;
+            animation: fall 3s linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        .hidden-section {
+            display: none;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        @keyframes numberPop {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .number-pop {
+            animation: numberPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes bashPop {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scale(1.5);
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .bash-animation {
+            animation: bashPop 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+
+        .slow-fade-in {
+            animation: fadeIn 6s ease-in-out forwards;
+        }
+
+        @keyframes drift {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.8;
+            }
+
+            90% {
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .heart {
+            position: absolute;
+            color: #F5569B;
+            pointer-events: none;
+            animation: drift linear infinite;
+        }
+
+        .typewriter-text {
+            display: inline-block;
+            overflow: hidden;
+            border-right: .15em solid #F5569B;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .10em;
+            width: 0;
+        }
+
+        .start-typewriter {
+            animation: typing 3.5s steps(40, end) forwards, blink-caret .75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0
+            }
+
+            to {
+                width: 100%
+            }
+        }
+
+        @keyframes blink-caret {
+
+            from,
+            to {
+                border-color: transparent
+            }
+
+            50% {
+                border-color: #F5569B;
+            }
+        }
+
+        .script-font {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .bokeh-particle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(8px);
+            opacity: 0.4;
+            pointer-events: none;
+            animation: drift-bokeh linear infinite;
+        }
+
+        @keyframes drift-bokeh {
+            0% {
+                transform: translate(0, 0);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 0.4;
+            }
+
+            80% {
+                opacity: 0.4;
+            }
+
+            100% {
+                transform: translate(100px, -100vh);
+                opacity: 0;
+            }
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #1355B2, #F5569B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .serif-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .word-reveal span {
+            /* display: inline-block; */
+            /* opacity: 0; */
+            transform: translateY(10px);
+            animation: revealWord 0.5s forwards;
+        }
+
+        @keyframes revealWord {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;display=swap"
+        rel="stylesheet" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        deepBlue: '#1355B2',
+                        lightPink: '#FFCBEB',
+                        brightPink: '#F5569B',
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 3s linear infinite',
+                        'fade-in': 'fadeIn 1s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style data-purpose="typography">
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #000;
+        }
+
+        .vertical-text {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            font-size: 0.6rem;
+            color: #9ca3af;
+            letter-spacing: 0.05em;
+        }
+
+        .header-text {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            color: #9ca3af;
+            text-transform: uppercase;
+        }
+
+        .month-label {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+    </style>
+    <style data-purpose="grid-layout">
+        /* Custom grid to mimic the specific asymmetrical layout of the reference image */
+        /*.masonry-grid {
+                display: grid;
+                grid-template-columns: repeat(12, 1fr);
+                grid-auto-rows: 80px;
+                gap: 0.25rem;
+                max-width: 1200px;
+                margin: auto;
+                padding: 2rem;
+            }*/
+
+        .circular-text {
+            transform: rotate(-57deg);
+            position: absolute;
+            top: 12px;
+            left: 233px;
+            width: 106px;
+            height: 100px;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .circular-text svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Sunflower background illustration */
+        .sunflower-overlay {
+            position: absolute;
+            bottom: -100px;
+            right: -100px;
+            width: 450px;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Grid layout adjustments for the specific masonry look */
+        /* .masonry-grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-auto-rows: minmax(10px, auto);
+        gap: 8px;
+        padding: 0 40px;
+        margin-top: 150px;
+        position: relative;
+        z-index: 10;
+        } */
+        .masonry-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-auto-rows: 80px;
+            gap: 0.25rem;
+            max-width: 1200px;
+            margin: auto;
+            padding: 2rem;
+        }
+
+        /* Styling for the horizontal line after Birthday */
+        .header-line {
+            height: 2px;
+            background-color: black;
+            position: absolute;
+            top: 127px;
+            left: 346px;
+            width: 240px;
+        }
+
+        /* Image wrapper to ensure consistent sizing and desaturated look */
+        .img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: contrast(1.1) brightness(0.9);
+        }
+
+        .img1 {
+            grid-column: 1 / 4;
+            grid-row: 1 / 3;
+        }
+
+        .img2 {
+            grid-column: 4 / 7;
+            grid-row: 1 / 4;
+        }
+
+        .img3 {
+            grid-column: 7 / 11;
+            grid-row: 1 / 3;
+        }
+
+        .img4 {
+            grid-column: 1 / 4;
+            grid-row: 3 / 5;
+        }
+
+        .img5 {
+            grid-column: 4 / 8;
+            grid-row: 2 / 7;
+        }
+
+        .img6 {
+            grid-column: 8 / 11;
+            grid-row: 2 / 4;
+        }
+
+        .img7 {
+            grid-column: 1 / 4;
+            grid-row: 5 / 7;
+        }
+
+        .img8 {
+            grid-column: 8 / 11;
+            grid-row: 5 / 6;
+        }
+
+        .img9 {
+            grid-column: 2 / 4;
+            grid-row: 7 / 9;
+        }
+
+        .img10 {
+            grid-column: 4 / 8;
+            grid-row: 7 / 9;
+        }
+
+        .img11 {
+            grid-column: 8 / 11;
+            grid-row: 7 / 9;
+        }
+
+        /* FEB AREA */
+        .item-feb {
+            grid-column: 2/4;
+            grid-row: 2/3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .item-main-portrait {
+            grid-column: 4/8;
+            grid-row: 2/6;
+        }
+
+        .item-top-right-1 {
+            grid-column: 8/10;
+            grid-row: 2/4;
+        }
+
+        .item-top-right-2 {
+            grid-column: 8/10;
+            grid-row: 4/6;
+        }
+
+        .item-artist-small-1 {
+            grid-column: 2/4;
+            grid-row: 4/6;
+        }
+
+        /* LEFT EDGE IMAGE */
+        .item-edge-left {
+            grid-column: 1/3;
+            grid-row: 6/8;
+        }
+
+        /* SECOND ROW */
+        .item-nude-portrait {
+            grid-column: 3/5;
+            grid-row: 6/8;
+        }
+
+        .item-jan {
+            grid-column: 5/7;
+            grid-row: 6/8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .item-lady-gaga {
+            grid-column: 7/9;
+            grid-row: 6/8;
+        }
+
+        .item-blonde-landscape {
+            grid-column: 9/11;
+            grid-row: 6/8;
+        }
+
+        /* THIRD ROW */
+        .item-man-white-shirt {
+            grid-column: 4/6;
+            grid-row: 8/10;
+        }
+
+        .item-the-weeknd {
+            grid-column: 1/4;
+            grid-row: 8/11;
+        }
+
+        /* LARGE PORTRAIT */
+        .item-craig {
+            grid-column: 6/10;
+            grid-row: 8/12;
+            position: relative;
+        }
+
+        .item-edge-right {
+            grid-column: 10/12;
+            grid-row: 8/10;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        */
+    </style>
+    <style>
+        .masonry-grid>div {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .hover-overlay {
+            position: absolute;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            z-index: 10;
+        }
+
+        .masonry-grid>div:hover .hover-overlay {
+            opacity: 100;
+        }
+
+        .overlay-text {
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border: 1px solid white;
+            padding: 0.5rem 1rem;
+        }
+    </style>
+    <style data-purpose="custom-animations">
+        @keyframes pulse-custom {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .pulse-effect {
+            animation: pulse-custom 2s infinite;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #F5569B;
+            top: -20px;
+            animation: fall 3s linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        .hidden-section {
+            display: none;
+        }
+
+        @keyframes numberPop {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .number-pop {
+            animation: numberPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes bashPop {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scale(1.5);
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .bash-animation {
+            animation: bashPop 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+
+        .slow-fade-in {
+            animation: fadeIn 3s ease-in-out forwards;
+        }
+
+        @keyframes slideUpFade {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-slide-up {
+            animation: slideUpFade 0.8s ease-out forwards;
+        }
+    </style>
+    <style>
+        .hero-gradient {
+            background: linear-gradient(120deg, #1355B2, #F5569B, #FFCBEB);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glow-text {
+            text-shadow: 0 5px 25px rgba(245, 86, 155, 0.3);
+        }
+    </style>
+</head>
+
+<body class=" font-sans overflow-x-hidden">
+
+
+    <!-- BEGIN: IntroCountdownScreen -->
+    <section class="fixed inset-0 z-50 flex flex-col items-center justify-center text-white bg-white"
+        data-purpose="countdown-container" id="intro-screen">
+        <div class="text-center">
+            <h2 class="text-2xl uppercase tracking-widest mb-4 opacity-80 text-deepBlue transition-opacity duration-500"
+                id="status-message">Get Ready...</h2>
+            <div aria-live="polite"
+                class="text-9xl font-black text-brightPink opacity-0 transition-opacity duration-500"
+                id="countdown-number">5</div>
+            <div class="hidden fixed inset-0 flex items-center justify-center bg-white z-[60]" id="bash-screen">
+                <h1 class="text-6xl md:text-9xl font-black text-brightPink bash-animation">BIRTHDAY BASH!</h1>
+            </div>
+        </div>
+    </section>
+    <!-- END: IntroCountdownScreen -->
+    <!-- BEGIN: MainContent -->
+    <main class="hidden-section opacity-0 transition-opacity duration-1000" id="main-content">
+        <!-- BEGIN: CelebrationHeader -->
+        <section
+            class="relative min-h-screen flex flex-center flex-col items-center justify-center text-center p-6 bg-gradient-to-b from-lightPink to-white overflow-hidden"
+            data-purpose="hero-celebration">
+            <!-- Confetti Container -->
+            <div class="absolute inset-0 pointer-events-none" id="confetti-wrapper"></div>
+            <div class="z-10 animate-fade-in">
+                <!-- <h1 class="text-6xl md:text-8xl font-black text-deepBlue mb-4 drop-shadow-md">
+                        Happy Birthday <span class="text-brightPink">ISH!</span>
+                    </h1>
+                    <p class="text-xl md:text-2xl text-deepBlue font-medium max-w-2xl mx-auto">
+                        Today is all about you! Let's celebrate another amazing year.
+                    </p> -->
+                <h1 class="text-6xl md:text-8xl font-serif font-bold text-deepBlue mb-6 tracking-tight leading-tight">
+                    <span class="hero-gradient">Happy Birthday</span>
+                    <span class="font-script text-brightPink text-7xl md:text-9xl block mt-2 glow-text">
+                        ISH
+                    </span>
+                </h1>
+
+                <p class="text-lg md:text-2xl text-gray-600 font-light max-w-xl mx-auto tracking-wide leading-relaxed">
+                    Today is all about you.
+                    <br>
+                    Let's celebrate another beautiful year of your life
+                </p>
+                <div class="mt-10 animate-bounce-slow">
+                    <svg class="w-12 h-12 text-brightPink mx-auto" fill="none" stroke="currentColor"
+                        viewbox="0 0 24 24">
+                        <path d="Step 19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                        </path>
+                    </svg>
+                </div>
+            </div>
+        </section>
+        <!-- END: CelebrationHeader -->
+        <!-- BEGIN: ImageGallery -->
+        <!-- <section class="py-24 px-4 md:px-10 bg-white" data-purpose="memory-gallery" id="gallery">
+                <div class="max-w-7xl mx-auto">
+                    <header class="text-center mb-16">
+                        <h2 class="text-4xl md:text-5xl font-bold text-deepBlue mb-4">Wrapped with Love</h2>
+                        <div class="h-1.5 w-24 bg-brightPink mx-auto rounded-full"></div>
+                    </header>
+                    <div class="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+                        <div class="break-inside-avoid animate-slide-up" style="animation-delay: 0.1s">
+                            <div aria-label="Birthday memory 1: The best times are always spent with you!"
+                                class="gallery-item relative overflow-hidden rounded-3xl shadow-lg border-4 border-lightPink group cursor-pointer focus:outline-none focus:ring-4 focus:ring-brightPink"
+                                tabindex="0">
+                                <img alt="Happy birthday memory 1"
+                                    class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110 group-focus:scale-110"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJzKavReBTTCLWyeMUPBi-G2iOWf-qejVB_fMAL5TUjy-jZo7iL-IMiNcTi-dgOA2l_XkVbQ3qGqU9RzqjSP4KddOReylcY3GnX8Rcx-24zV8Z21WrUK_Q_-rlGhupIAYsMvfckv7melyn7d1_2JF2WvgPIhjBPZVtOWy9_hvm8hqxtbTBQlTC8tcfAkyLBD54rV5qN8ET78i-ULiwSGNuYZikhf73tJFOMoVpr62ocVKuxetc22Jwyih3dCVHj2xLvwmDf5SeJkE" />
+                                <div
+                                    class="absolute inset-0 bg-deepBlue/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-500 flex items-center justify-center p-8 text-center">
+                                    <p class="text-white font-bold text-2xl drop-shadow-lg">The best times are always spent
+                                        with you!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="break-inside-avoid animate-slide-up" style="animation-delay: 0.2s">
+                            <div aria-label="Birthday memory 2: Keep shining bright like the star you are."
+                                class="gallery-item relative overflow-hidden rounded-3xl shadow-lg border-4 border-brightPink group cursor-pointer focus:outline-none focus:ring-4 focus:ring-deepBlue"
+                                tabindex="0">
+                                <img alt="Happy birthday memory 2"
+                                    class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110 group-focus:scale-110"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvQ-k9jvNu7s22_xItiiOb6vHGe671lN7BaF2DEYCTnot4PVIwMyxl-7LS4xjWzb2C5rwY01arERPbQBhBz9redIGwS-5h-yiWlWOQ4Vlhen3MtFFzVMJ2Y1-_dmTnFNjMCYOVADgr6DBddFUdM7VFm6CH0u89C0r1zElCqLycNwOGqF9cn2smBCoIE2A1iSa4CfewrJ7rCASeJlQE19YN_LVGg6P4zFHQt1pPtYjDdkG7qB3MptPyHFNNKkA52H_eyzTA2njstfA" />
+                                <div
+                                    class="absolute inset-0 bg-brightPink/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-500 flex items-center justify-center p-8 text-center">
+                                    <p class="text-white font-bold text-2xl drop-shadow-lg">Keep shining bright like the
+                                        star you are.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="break-inside-avoid animate-slide-up" style="animation-delay: 0.3s">
+                            <div aria-label="Birthday memory 3: Cheers to many more adventures together!"
+                                class="gallery-item relative overflow-hidden rounded-3xl shadow-lg border-4 border-deepBlue group cursor-pointer focus:outline-none focus:ring-4 focus:ring-brightPink"
+                                tabindex="0">
+                                <img alt="Happy birthday memory 3"
+                                    class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110 group-focus:scale-110"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAr3oVzzF51lWaeF5rwbMUgfli0v8kTk-DLVoOQzGTYuFRFIUPFNlFPnfAWC7_aJPby56m7hHyh30B5N04wLiaf_G6lGRluFnrMrLCjvt8XW44pXnFIBbhaloZC8RJ-Mzh6lor4pz0hUSR88h1E63yPhNDuibk9_iUoFyJoIOdEtUGJH6IP-7mYTtLRv__vubp2FUCXUiCAnvI0fe8XqfE9Vgsa2WI-1aFgaNqeG5ZmLfJymxuOpE8aO42C1OyhYLUnvwU6bktWHPA" />
+                                <div
+                                    class="absolute inset-0 bg-deepBlue/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-500 flex items-center justify-center p-8 text-center">
+                                    <p class="text-white font-bold text-2xl drop-shadow-lg">Cheers to many more adventures
+                                        together!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="break-inside-avoid animate-slide-up" style="animation-delay: 0.4s">
+                            <div aria-label="Birthday memory 4: You make every single day better."
+                                class="gallery-item relative overflow-hidden rounded-3xl shadow-lg border-4 border-lightPink group cursor-pointer focus:outline-none focus:ring-4 focus:ring-brightPink"
+                                tabindex="0">
+                                <img alt="Happy birthday memory 4"
+                                    class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110 group-focus:scale-110"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAS5QSxtDhmMdcMtRUPHbmUb44i8BfxeMOxteIJuxv0Qv7HJWW3TzdK497FWNgF-pjtcc3vumjnByRxUa13_iEwxPPBM_qnqcyAxNNLNYDvZeOqIpqbWXScF-mOpNsidJi5C75jn2XtuDTzrhOo89KSCoz_5VyHb-1z_iqXVzlPGkWcE8tzsgDuZ4C8D6XfqRxGBktirY7T8z8z_eeMP1-iu5DaOG6lZcALg6eaYWPByq7ApR_qVfgmdHBBOTqrZS2NTvZWa7q1EcQ" />
+                                <div
+                                    class="absolute inset-0 bg-brightPink/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-500 flex items-center justify-center p-8 text-center">
+                                    <p class="text-white font-bold text-2xl drop-shadow-lg">You make every single day
+                                        better.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="break-inside-avoid animate-slide-up" style="animation-delay: 0.5s">
+                            <div aria-label="Birthday memory 5: To another year of growth and happiness."
+                                class="gallery-item relative overflow-hidden rounded-3xl shadow-lg border-4 border-brightPink group cursor-pointer focus:outline-none focus:ring-4 focus:ring-deepBlue"
+                                tabindex="0">
+                                <img alt="Happy birthday memory 5"
+                                    class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110 group-focus:scale-110"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNkcTJtjOeO-3-anVLKJbOLcQrGW8g4pGd13j4DCZjwxGRQYCApUnkhas3bc54Jrk-G4c-18OPGEYv3O8Ez2-m-iER8nu5ABQqLIUJ3ijni9Hp9z5Qs-VoiWeL1YtkIG4wFSZh3Pojq6189LLIZqxnFkziVwTM0TCnWvyNA0IxA3qN1t0DyPMflKbsLGQmUqRj95QK1kxF2QYmqhlEz-12mVcE8Xkuos-jc-YWDppJIBayAFf694dpSm3qtpPPploZ7LiJ0lVtUZA" />
+                                <div
+                                    class="absolute inset-0 bg-deepBlue/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-500 flex items-center justify-center p-8 text-center">
+                                    <p class="text-white font-bold text-2xl drop-shadow-lg">To another year of growth and
+                                        happiness.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="break-inside-avoid animate-slide-up" style="animation-delay: 0.6s">
+                            <div aria-label="Birthday memory 6: Happy Birthday to my favorite person!"
+                                class="gallery-item relative overflow-hidden rounded-3xl shadow-lg border-4 border-deepBlue group cursor-pointer focus:outline-none focus:ring-4 focus:ring-brightPink"
+                                tabindex="0">
+                                <img alt="Happy birthday memory 6"
+                                    class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110 group-focus:scale-110"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiZ5WYqtSXb1BjmOz2wLmSyonLT5ioJdVKvPyCj_G2bQxXb86ZGoF4-sKVJKiuDfn0OCuBobIYbks0fJCxOUGo37EpuZ8W_fefj4_ddYoGRlF2ubGAqAQbyle3AYmm09qMRADsGQlLWcOsOS5s0Bao8kaZWkUK5_I8rzqD-nFPbwT7E-SZHZSz8pvZSaNXjJMwVBXMaqcEIsR5on9DFvcZ7BLrJYbEWE9012AC9_zCYkrIL-vxQjAgadZqIFkevpnEBygmbs40BZ4" />
+                                <div
+                                    class="absolute inset-0 bg-brightPink/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-500 flex items-center justify-center p-8 text-center">
+                                    <p class="text-white font-bold text-2xl drop-shadow-lg">Happy Birthday to my favorite
+                                        person!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section> -->
+
+        <section class="relative">
+            <!-- BEGIN: Masonry Gallery Section -->
+            <section class="masonry-grid" data-purpose="asymmetrical-image-grid">
+                <!-- FEB Label -->
+                <div class="item-feb">
+                    <h2 class="month-label">FEB</h2>
+                </div>
+                <!-- Large Center Top Portrait -->
+                <div class="item-main-portrait">
+                    <img alt="Artist Portrait - Large"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZEw3nqhe7cnzTCKBeeeyIWsdfQa10IqKHrjj_EQ-07sUb2AGwydItWSMYKQcRg4bW_203i7gpBIB9ojuBAbZv63niO_Q4oDtxjahpxPwlHQ0WT4yc4S1dJdr4dBSXfNrIG7GgVHMQiFMV7hXRel6i4ERzrpMkMNg2mG1FKoVJihJrwC59isLajMi1ed75luPBkq7GI-giEYIiOuP2nbjMovxu7EwU0wmwboP3mcNHVAuBEGRMJsUZg_gHCviAmhFlGSc3uKTr8bQ" />
+                    <div class="hover-overlay"><span class="overlay-text">VIEW CONCERT</span></div>
+                </div>
+                <!-- Small Artist Portrait top right -->
+                <div class="item-top-right-1">
+                    <img alt="Artist Portrait - Top Right 1"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCx2H9cKO-R8GGaR5AnlA08Gy3FElRfBdiuH1du2vuFRuALKPkB3wrV2SI5w3W8faLPCxPLNBda3nvUO6Ik0hhR5b097pF1dxAeeL8aGHKZncZqfEIJAcDfEsqwMQ3sJmS4NmIn7n-1AI0LNMFe0yj4FKTiyWzIBIK1o-hZk9rgp6PziITasTWsQbvA6cClJak6Om7zl72apqhPYMSTKsTJrYFgjhnPi9Gpmqov5hFAEmoPFaKARArOaKTG61VlGkI8zsREDalgPeM" />
+                    <div class="hover-overlay"><span class="overlay-text">VIEW CONCERT</span></div>
+                </div>
+                <!-- Artist Portrait top right 2 -->
+                <div class="item-top-right-2">
+                    <img alt="Artist Portrait - Top Right 2"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuRk_H0ODJyhCt5FL2p7HnA_yUNUEUHX2Gnx0JxaoF3hZBZnEfuDa6uYPzd9T_VUOgy7R5HrtpBYI6WCAW2sNiyyPkl0k1gq_IbIXV2sjbbVlE9SIPS2W2574_sBF-ElDmRn392-t_e_7eAXp6X2JVsfrVang1FHaNDx4fLYAqIx1kjmXLftq60KAqkoRdPMEsKPPIKfpun1HzRxT3f-5CJmI5WLPMiic-ittDO7gjKyuh7vXQrRXsiYk43MyYRF57X1iMU8_jQc0" />
+                    <div class="hover-overlay"><span class="overlay-text">VIEW CONCERT</span></div>
+                </div>
+                <!-- Small portrait mid-left -->
+                <div class="item-artist-small-1">
+                    <img alt="Artist Portrait - Mid Left"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrKSJ-lSVLdW8xR5nYzpXT7dPU2ArV-jRiaITib2JYqKRERQPHJ_qkIdsYnOZE9rA2IwzPyLetHRbikWDDPfo24_qjaC95CFnWQqe6pxaS6kVfNYNyrVzYwuLBONGeWUhVMKcS6EZXjSwCEYnj8sTsggkPwOwawlBWHzlob7dpolxcuyiPF15XMGXu7Rj0UtjkXPZP-2R8z886J56QPPtRYOIAWi40nDIkTYvVfiWhFRqkNIj1ERHmO41p_SyO44NsFQglVPgslYM" />
+                    <div class="hover-overlay"><span class="overlay-text">VIEW CONCERT</span></div>
+                </div>
+                <!-- Far left edge portrait -->
+                <div class="item-edge-left">
+                    <img alt="Artist Portrait - Far Left"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAk7Ww2oWRAjX8ngmG8BRt2lRoeLUftT1qXuj8CJgFUJM4-bSArgzV7I5Ruo3eSD8khG3W3AfxwftJZ4ClV7wklZA7mK_CWAF_ud1cv7Gy74LgyBPounIoCaw-slx93aCdl_rCro5pYzVmzeyMZMM6T1XufEU7WKooKjKilRyopiEiAud3rYbWOX3qFbWzKF3YfKpvshsM4ZW9o3wNZDfkzK4OhOvjjD-L5ewOWTvMG3acVUseE3F-mfTLkfEmoT0gig7iRSNHT-2E" />
+                    <div class="hover-overlay"><span class="overlay-text">VIEW CONCERT</span></div>
+                </div>
+                <!-- Soft lighting portrait -->
+                <div class="item-nude-portrait">
+                    <img alt="Soft Lighting Portrait"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBN0oyZqfLFLAprwqOrrYWd_uu5Al55dvC0Z2OLnN_GXHOtDL43nqfucE9XmSSbX7IR5q8AC6HZClP4EWBg2KnVe_4qSzIbHDTuqsKCk1n4fkTS1rQW5IWFaYqByKcFuLO9SJwEnOWQN8FrCx6YG1ZR3c9pqvh4DOjodz6oLnvBsUfbg_-17pJM1SQYT8u3JhWEesy7QK734a2mCUnklBa14Ha3J0qhSGcCQEuzhgY04ju8__PEYtzyt_bUY0TNOzN9UWGtk-Df5bI" />
+                    <div class="hover-overlay"><span class="overlay-text">VIEW CONCERT</span></div>
+                </div>
+                <!-- JAN Label -->
+                <div class="item-jan">
+                    <h2 class="month-label">JAN</h2>
+                </div>
+                <!-- Blue/Red lighting portrait -->
+                <div class="item-lady-gaga">
+                    <img alt="Artist with Blue and Red Lighting"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZ6b21g0rtga7FBpdHP9NBsWwcBysrpmTHx2St17HD_IxWiWZB0o0dUcNDnppgDLNw897mZC4xh2Y3pgZ4irdYfio5xcVkQU8Vrvwgkce7fGDMgFmqgPGQGC1D6at6z6uyzqoljNk_EOBYoUH9N4PdGiVXlnBQ2Iil4q734L5Vqdh_7CzXKsTT8Z9vmbNDNsNslCx2BxRHpylk62UIVjaaLLpi9chonxAELuNp0Ffcn_7QxXnap91y4IQDokNzXblu0uu-t9d6jZs" />
+                    <div class="hover-overlay"><span class="overlay-text">VIEW CONCERT</span></div>
+                </div>
+                <!-- Blonde woman landscape -->
+                <div class="item-blonde-landscape">
+                    <img alt="Blonde Artist Landscape"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTwcDp221t80hfZVXa7Vy1tmnoLLpZ9dsg3FJwYfxRPxreKFog_U1PBiQAywVpELVSuGenH1wHyV--4IB9YbGlbt8Mzqn88cIpb8A3M2nKx_v9uMTkrN6zsbvycA6zCiXCVX_ETXrjDwr4jKcyFz9egNWY_BPfmIbShlIDTkxKaDpg3Emt5SnCVFE_XKrcidw65UgAUA5lclBojb9JO3841CupwURGNUnYU33poZQxcWVKubMCY1cHeN__yeRQATFh3xF5q-JF-1U" />
+                    <div class="hover-overlay"><span class="overlay-text">VIEW CONCERT</span></div>
+                </div>
+                <!-- Man in white shirt -->
+                <div class="item-man-white-shirt">
+                    <img alt="Man in White Shirt"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9AmhhEYtBwGYHf-muuYNNXXwv2WcuqEtV5dmqqniMm7qbodFDaDHEKTkSNHHA493LEFwp2Awe2wpNszWbdxZ8MM_gKFmU1P5um79AHmTq95Hfw4FQm9nv8h-GQaMUUZrrnG858fcy-KA4scUK5JV_1j0SkfHK6h5a3u_xrs_Tz70em896euFHJvElfDzVJh0GwX8HyPtQKaIFoUTWeMP3TA289gyEXm5H4LYpYfJWXkr2XkUkhbCOfp2Zd2YfZB2oL2X8gDComz8" />
+                    <div class="hover-overlay"><span class="overlay-text">VIEW CONCERT</span></div>
+                </div>
+                <!-- Moody dark landscape (bottom left area) -->
+                <div class="item-the-weeknd">
+                    <img alt="Dark Moody Artist Portrait"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAVK2_o_hQngdobv_9VSIT9mzLi84u6YB-ROIqP5yL-Z5AWnMWtWj-P5SgJFBO13B5rb5_JEBBH_Ef-kA4-BHWZBXCUVK6Melzxdbhh0H0enAIoLAKpLnCDpnohafHNbkdvnaSM_c2HckqoviuJy6--zgajJ18ACFq3HGAUhN_Z7AQL73PUw_4aF6az8hRN6dRG0e0z1dJJSoUzJyWYtNufwb0n2W4zAXOd9BrW8M2pWgTeQSPBrCt_UJtTSD9Q0vpiAX6BTD51GU" />
+                    <div class="hover-overlay"><span class="overlay-text">VIEW CONCERT</span></div>
+                </div>
+                <!-- Large Craig Portrait with label -->
+                <div class="item-craig" data-purpose="labeled-portrait">
+                    <img alt="Craig Artist Portrait"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOvWJCAd5Jm928cilHzhpZ68A7c9DPLqBXnq9t1BFsKiK4OaBnRQoEXOQUb_AFa2IM-A1_J1CzGaOb4fM3boAjaKtq2JzAyaQByC2DvzdFNxblswYAVX4J7b0cdoRIidBw_ju1Eqli2Pvcu40bWKhwurZMHA6Ddids4fEhdNM6yZ12MlmDRNVx3LdnJmnMXIFr1ntbkpfqX5IYeeJ1tLaiOBecsD4kcZwTMX9fevMeFmjLGsjyn8VBIrFvMDeOWk34aGbE7UjEjeI" />
+                    <!-- Floating label for 'CRAIG' -->
+                    <div class="absolute bottom-16 right-16 text-white flex items-center gap-2">
+                        <span class="w-2 h-2 border border-white rounded-full inline-block"></span>
+                        <span class="text-sm font-bold tracking-widest uppercase">CRAIG</span>
+                    </div>
+                    <div class="hover-overlay"><span class="overlay-text">CRAIG</span></div>
+                </div>
+                <!-- Partial portrait on right edge -->
+                <div class="item-edge-right">
+                    <img alt="Artist Portrait - Partial Edge"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuATrk1KaZcBvcT5yPpaFpfi5Wg6UMJJhSo1K5bXDqC_NrRC789V5EBHIlIccIJRjQnLDNUuf_Wtuoj8lD2BQiO7_-25LhQiI4RtVs77NrE10ymbdAefMogEN-MZ-qrmMOkHXke3d7KCk-4rO7nDfHdu69mLLDp-ZcXQ9EiiKpGg6GX-MBeSipuGBsUXoQTAiZ-xlS3dS4Gy20nKpBvHf1pzfQ6moSfRGQCEeEnHvoEiCJNLhc4hLH30ghJ8Uu0OhuZsX3aMzqFCUIw" />
+                    <div class="hover-overlay"><span class="overlay-text">VIEW CONCERT</span></div>
+                </div>
+            </section>
+            <!-- END: Masonry Gallery Section -->
+        </section>
+        <!-- END: ImageGallery -->
+
+        <!-- BEGIN: MainContent -->
+        <section class="relative">
+            <main class="collage-container" data-purpose="main-layout">
+                <!-- Sunflower Background -->
+                <img alt="Sunflower Background" class="sunflower-overlay"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqnJEi2dBzhukV2iDpNSdJfofx7_muZk_a6afp6JieIh18lcjJhozUc_qVNiX_RJJODmPSPHXJS9KGhM8C8sAtUufwnkRzs_F_5C-CfdfHI2-VuTkQpWYjQoUqmSsBBnSTWdFitWSHgW_-q8WR8y6Ky08hpUr4Uv1c5_K6NI2kJ60f4MYsyPnvlHLOwYZoETz-RTNxAj5oSIzHdFGqff4HmJa_CNf85q_B3yQYQgCKS9luA49D3XhHnF880_CovirpX2uVR-G9z-I" />
+                <!-- BEGIN: HeaderSection -->
+                <section class="absolute -top-40 left-10 z-20">
+                    <!-- Circular Badge -->
+                    <div class="circular-text">
+                        <svg viewbox="0 0 100 100">
+                            <path d="M 10, 50 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" fill="transparent"
+                                id="circlePath">
+                            </path>
+                            <text>
+                                <textpath href="#circlePath" startoffset="50%" text-anchor="middle">
+                                    IT'S YOUR DAY!
+                                </textpath>
+                            </text>
+                        </svg>
+                    </div>
+                    <!-- Main Title -->
+                    <div class="mt-8 ml-10">
+                        <h1 class="text-6xl font-script leading-none text-black">Happy</h1>
+                        <h1 class="text-7xl font-script leading-none text-black ml-12 -mt-4">Birthday</h1>
+                    </div>
+                    <!-- Decorative Line -->
+                    <div class="header-line"></div>
+                </section>
+                <!-- END: HeaderSection -->
+                <!-- BEGIN: PhotoGrid -->
+                <!-- Arranged in a 12-column grid to allow for staggered positioning -->
+                <section class="masonry-grid mt-44" data-purpose="photo-grid">
+                    <!-- Top Row -->
+                    <div class="img-box img1 h-36 mt-4">
+                        <img alt="Portrait 1"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpcQ3xK8Uvk3FBHJ9nD_vHv1YxE_B5J2E_31pjdVK9TRVdG8J0eLH96z3CEqDObCOve5RI98ViwIQKSMq4CuSmivTa6E1yk5szupwFydXff1ZKBw7-mwTz_0X883g8Wv3gGT-vBg7lH4zypGjXkGl2oL7Jz-Zbe0W2byMheoR-lposdMzcCtjzLhPoINbtDyDvtyayZjzQYNbqiNw5IaMJGQzec35IPaH65GoATamj9OEZ8LuUB6YMoyDRvfYhGfZPyvhsMZcO7sc" />
+                    </div>
+                    <div class="img-box img2 h-40 ">
+                        <img alt="Portrait 2"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgvaaDKyV1_xpysfkKL88gj_HsZrxshukUGDvrPu5yq8bthJVmkP6YVouoNi9WYiK3cg4IgvyTswclvAqo1CjL00HOktezLJyDsVzvmcbyDgXxVUO7jyM8llXqRahs4QrV4DRceqC7l_1XxFetZQHZbq8nMAt1PlznUxF4hGDX6AH0uTCW3huYVn8AbXkM0DeXf6IeqcbpQqeUNFqDbesf8vVx_58JlvBhYtfsKsIHA1UrKVjKbyxEBId4Hh-krjFu9xRqXIcc8Q8" />
+                    </div>
+                    <div class="img-box img3 h-36 mt-4 ">
+                        <img alt="Portrait 3"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8qbQrLubHVmq7Y02op05aHj3QFdzXTH_VAEdXcGSW5h1pTE0ByViz5afiDCoNfuTL2c3ZW9LR2HFvw88qqCrQ293KZxamB9PKeUaPPlyjdPHnWK_gec3Cm9BmK9iYgJvVlnSAIUx2VmgtShLoUoVcCq_Rsd5aczuxOcOoaGruXeCC1zrsfytURApMlqHN-a0YuNQRUYBM8nHeDuckRSGWqk2ny2N1Ny7QZsp744AgknUGm7sxbg1zbVcHVXGAwz0yEro-Vi2ea18" />
+                    </div>
+                    <!-- Middle Area -->
+                    <div class="img-box img4 row-start-3 h-40 ">
+                        <img alt="Portrait 4"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwiRcQBpItehqnfLkzGhxBNJNPkONudfiqpmfJsDKNMht5MFn2Uxzfbz8WsYKpMdIOceDD9Tv0zUG9AXfrIEBMXkjKZUfULb-m_4jsFd3iL4P3J-jPotGKOahNdScK1NZ1amzEZMHxBo1_0UVAKADkqPoU91NGFuWZ02jf1AO_CeKKOw4DdZOVOA9E-zUTd0tpYmE0c4Q0UGTEqc5-ORAsgIQ7xZGyLDG-Bv5oCh8mCUK5j82bZmzBGrb6R7bM7UEGd5ll0veqf98" />
+                    </div>
+                    <!-- Center Large Image -->
+                    <div class="img-box row-start-3 img5 h-68 ">
+                        <img alt="Portrait 5"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3aOD1Th9zxhSRMYk99aMPnUKkw75JTTeojn389mC1C1WZO_PaXkgmP9Gt8arkv8FKtlJqQAIos00csPiuRMy6HfLCw7H149louDkQky1PNoV-ep8anbXzJwtmOSBNnVIfGaEaivhX07i4biBvCy8Na0-l9zyOTySq5uYK8u0ip7ucTcGNFMgJbay4sqYgdlKQOqdVxce6guxfyet4Z3ItBmlxrjPCD5h7GsxIdraSJgjS0wMjE8RQaly9eCYOTnCppX8Zf77MoDo" />
+                    </div>
+                    <div class="img-box row-start-3 img6 h-40 ">
+                        <img alt="Portrait 6"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCddVwFULLsd-yjcDj3GTHoEuOYQj2RpneKH5ODhGHdTBKU2U8f0suOFGdjdnERMkSjJvNXGMNJUXEk3VthKy-L6kLpjoen5c124aAxZH5bls8hrna7B4ZFmtqPDORMpPxB06XP7MA4moNcMZGjpYc4lkS5EBQDOHuEm0Qrnmxf-eFHErbXP36CRREMibtEuUWw4-joU5NNqG4886k3ei6a8p4njggkwt4LPcXUbVSfChucrbguw6WU4vzq0inbBUcijuY1nNwR_8Y" />
+                    </div>
+                    <!-- Bottom Cluster Left -->
+                    <div class="img-box img7 h-40 ">
+                        <img alt="Portrait 7"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_aDAo6Rb4hmrgABfgQc1FzhAfr2g-2pEleI5NMHuTkh3SBwaGvoSzLoE_RTNOlDzHLay6p5BBIIjRVXxGLk1mFM93nrGsQqG4Em7IQw-KxZy8inYfxpVDriKBo0W5NNlGqfLNOjJdVG2MsAG5zIFBv1wzhSi1IwhOqwHHqYcVEChoVI0_uJu6vxV8TXtmHuP-E7ZkyhwDK3JoOW2WoLxyxzX5U2dGQUDZ8SVfKoMyKaXJqUhO2Jj7AC1J7AEDMFnEB62KTDW4m-o" />
+                    </div>
+                    <div class="img-box img8 h-40 ">
+                        <img alt="Portrait 8"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSBHL3ohhwI5OfaDJjRQ5NkKCkm4TVnjciqX5S9_VhpZzEqvKKSy71EfzuX6Obv-EUjPWg1l3XOekOkT98roZijgMATY_3syIemxDwaCz465UsOn6jDVCSLjTooPJHTYB2NEeD5eISsifQqILQNGlu1rs9ssW-x8CDQhqRs7PUHDc-CB9y5jq5fOXaE8ehQ7vUD-PUrzajKjqPN_XRIRPRkMrh2uTjxiSF3f3M07cwakfvatzWu8FxEKvZKdJhH-6xeNCVQ0agCf8" />
+                    </div>
+                    <!-- Bottom Row -->
+                    <div class="img-box img9 h-32 ">
+                        <img alt="Portrait 9"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLCYVk6EZseLLnlLWtgmlQ4NPHJzjqVA8mmnxNTBJ30ftenIxwLHNzEIQwldRPtjrS_hg3qIph6-Boc2zeFsAXMRAHGDzyUFaOEfhYgNQQj5SBP_lEILqOFKsvShAITyr8DKNXcEv8Kv313Gd_6Zc13OfRnidmz6N4W4qLmJwaj4Cnps3s9NBoHOIxQWhL2ABlmUNXE5lY86V7_LxyObQd75RuLNOjROuV3MT0sIR4irYCdxfj_kXIP45kIJM8Q8T8TS64865Uk2g" />
+                    </div>
+                    <div class="img-box img10 h-36 ">
+                        <img alt="Portrait 10"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuASTxVHmxwhPEMgToYuqgJKvpXx9O-5ai2eWWcb_KSWusQ6WUzCOR8miGVOE8z_EJ5ObFzU0BTFQyXCpTFzFOQvY_aOMahrG_COdDmc_QrrWpiORiHagqCR9yP0FQLlL16LvcV5vDMG5oA1wHdYTo2QrAlH6NQPJm3MS7ht99weQdNgBZIf8eKrn-13yAoBBI3alL6Aoz3m1Ei8z6wKdFOpL9qCM-HjWGSBLVDyE2sgUQyLA7A1UVt0ucExtqjZCzz02TGorz4vKVc" />
+                    </div>
+                    <div class="img-box img11 h-28 ">
+                        <img alt="Portrait 11"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuARt_-3tLyY6pJRBkFdnrraOni1HaI6y9CY1Ys-A9ffT1hQQrZtx1RxnpySK_LHVSt76nWldVka0FzaYvvzigAEq4wofQ8lDteKcD7PRKjKCb3ZI82N6rP3M7FFr1Wj581ryzZU9k5eA25WhOd4GpeXuXU7V8ap9Pi3WP4ptOPshtaZzUjNThpADnPPkl-Fg1LfuzKa2hvmp23lhLW8PtL6c8_khnIAUtUA0c8Y2ufU3N0MRPjFjF5qZoJjTPZ8X1dR5mHAXVYSzxM" />
+                    </div>
+                </section>
+                <!-- END: PhotoGrid -->
+                <!-- BEGIN: FooterSection -->
+                <footer class="absolute bottom-10 right-10 text-right z-20 max-w-[320px]">
+                    <h2 class="font-montserrat font-bold text-2xl text-black tracking-tight">14 FEBRUARY 2024</h2>
+                    <p class="mt-4 text-[10px] text-black leading-relaxed font-sans">
+                        • "Wishing myself the happiest of birthdays! As I blow out the candles, I'm filled with
+                        gratitude
+                        for the
+                        blessings of another year and the opportunity to create new adventures ahead."
+                    </p>
+                </footer>
+                <!-- END: FooterSection -->
+            </main>
+        </section>
+        <!-- END: MainContent -->
+
+        <!-- BEGIN: FinalScreen -->
+        <footer class="relative py-48 px-6 bg-white text-center overflow-hidden" data-purpose="closing-message">
+            <div class="absolute inset-0 pointer-events-none" id="bokeh-container"></div>
+            <div class="relative max-w-4xl mx-auto z-10">
+                <h2 class="text-3xl md:text-4xl serif-font italic text-deepBlue/60 mb-12 tracking-wide">To Ish,</h2>
+                <div class="mb-16">
+                    <h3 class="text-4xl md:text-6xl serif-font font-bold leading-tight gradient-text word-reveal text-brightPink"
+                        id="poetic-message">
+                        <span></span> <span>May</span> <span>your</span> <span>journey</span> <span>be</span>
+                        <span>as</span>
+                        <span>bright</span>
+                        <span>as</span> <span>your</span> <span>smile</span> <span>and</span> <span>as</span>
+                        <span>beautiful</span>
+                        <span>as</span> <span>your</span> <span></span><span>heart.</span>
+                    </h3>
+                </div>
+                <div class="w-24 h-px bg-gradient-to-r from-deepBlue to-brightPink mx-auto opacity-30"></div>
+            </div>
+        </footer>
+        <!-- END: FinalScreen -->
+    </main>
+    <!-- END: MainContent -->
+    <script data-purpose="logic-handler">
+        document.addEventListener('DOMContentLoaded', () => {
+            const countdownElement = document.getElementById('countdown-number');
+            const statusMessage = document.getElementById('status-message');
+            const introScreen = document.getElementById('intro-screen');
+            const bashScreen = document.getElementById('bash-screen');
+            const mainContent = document.getElementById('main-content');
+
+            let count = 5;
+
+            // Initial 5-second delay before countdown starts
+            setTimeout(() => {
+                statusMessage.textContent = 'Get Ready for a Surprise';
+                countdownElement.classList.remove('opacity-0');
+                countdownElement.classList.add('number-pop');
+
+                const timer = setInterval(() => {
+                    count--;
+                    if (count > 0) {
+                        countdownElement.classList.remove('number-pop');
+                        void countdownElement.offsetWidth;
+                        countdownElement.textContent = count;
+                        countdownElement.classList.add('number-pop');
+                    } else {
+                        clearInterval(timer);
+                        triggerBash();
+                    }
+                }, 1000);
+            }, 5000);
+
+            function triggerBash() {
+                // Hide countdown elements
+                statusMessage.style.opacity = '0';
+                countdownElement.style.opacity = '0';
+
+                setTimeout(() => {
+                    bashScreen.classList.remove('hidden');
+                    createConfetti(); // Start confetti during bash
+
+                    setTimeout(() => {
+                        startCelebration();
+                    }, 2500); // Duration of the Bash screen
+                }, 500);
+            }
+
+            function startCelebration() {
+                introScreen.style.transition = 'opacity 1.5s ease';
+                introScreen.style.opacity = '0';
+
+                setTimeout(() => {
+                    introScreen.style.display = 'none';
+                    mainContent.classList.remove('hidden-section');
+                    mainContent.classList.add('slow-fade-in');
+                    setTimeout(() => {
+                        mainContent.classList.replace('opacity-0', 'opacity-100');
+                    }, 50);
+                }, 1500);
+            }
+
+            function createConfetti() {
+                const wrapper = document.getElementById('confetti-wrapper');
+                const colors = ['#1355B2', '#FFCBEB', '#F5569B', '#FFFFFF'];
+
+                for (let i = 0; i < 150; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti-piece';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                    confetti.style.animationDelay = (Math.random() * 5) + 's';
+                    confetti.style.opacity = Math.random();
+                    wrapper.appendChild(confetti);
+                }
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const bokehContainer = document.getElementById('bokeh-container');
+            if (bokehContainer) {
+                const colors = ['#FFCBEB', '#1355B2', '#F5569B'];
+                for (let i = 0; i < 15; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'bokeh-particle';
+                    const size = Math.random() * 60 + 40;
+                    particle.style.width = size + 'px';
+                    particle.style.height = size + 'px';
+                    particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.top = (Math.random() * 50 + 50) + '%';
+                    particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                    particle.style.animationDelay = (Math.random() * 5) + 's';
+                    bokehContainer.appendChild(particle);
+                }
+            }
+
+            const message = document.getElementById('poetic-message');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const words = message.querySelectorAll('span');
+                        words.forEach((word, index) => {
+                            word.style.animationDelay = (index * 0.2) + 's';
+                        });
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            if (message) observer.observe(message);
+        });
+    </script>
+</body>
+
+</html>

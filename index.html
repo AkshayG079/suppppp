@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>multi‑page birthday surprise · ISH</title>
+  <style>
+    /* ----- GLOBAL RESET & VARIABLES (palette: #1355B2, #FFCBEB, #F5569B) ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --deep-blue: #1355B2;
+      --light-pink: #FFCBEB;
+      --bright-pink: #F5569B;
+      --white: #ffffff;
+      --overlay-bg: rgba(19, 85, 178, 0.85); /* semi‑transparent deep blue */
+      --transition-default: all 0.3s ease-in-out;
+    }
+
+    body {
+      font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--deep-blue);
+      color: var(--light-pink);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.5s;
+    }
+
+    /* accessible hidden / screen-reader only */
+    .visually-hidden:not(:focus):not(:active) {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      border: 0;
+      padding: 0;
+      white-space: nowrap;
+      clip-path: inset(100%);
+      clip: rect(0 0 0 0);
+      overflow: hidden;
+    }
+
+    /* main container – each screen is a “page” */
+    .app-container {
+      position: relative;
+      width: 100%;
+      max-width: 1300px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+    }
+
+    /* all screens share full‑page sizing, but we toggle visibility */
+    .screen {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), visibility 0.6s;
+    }
+
+    .hidden-screen {
+      opacity: 0;
+      visibility: hidden;
+      position: absolute;
+      pointer-events: none;
+      height: 0;
+      overflow: hidden;
+    }
+
+    .active-screen {
+      opacity: 1;
+      visibility: visible;
+      position: relative;
+      pointer-events: auto;
+      height: auto;
+    }
+
+    /* ----- COUNTDOWN (screen 1) ----- */
+    .countdown-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 80vh;
+      background: radial-gradient(circle at 30% 30%, var(--light-pink) 0%, var(--deep-blue) 80%);
+      border-radius: 3rem 1rem 3rem 1rem;
+      box-shadow: 0 30px 40px -15px rgba(0,0,0,0.5);
+      text-align: center;
+    }
+
+    .timer {
+      font-size: clamp(6rem, 25vw, 16rem);
+      font-weight: 900;
+      line-height: 1.2;
+      color: var(--light-pink);
+      text-shadow: 6px 6px 0 var(--bright-pink), 12px 12px 0 rgba(245,86,155,0.4);
+      animation: pulsePop 1s infinite alternate ease-in-out;
+      letter-spacing: -0.02em;
+    }
+
+    @keyframes pulsePop {
+      0% { transform: scale(1); text-shadow: 4px 4px 0 var(--bright-pink); }
+      100% { transform: scale(1.08); text-shadow: 10px 10px 0 var(--bright-pink), 0 0 20px var(--light-pink); }
+    }
+
+    .countdown-label {
+      font-size: clamp(1.5rem, 5vw, 2.8rem);
+      color: var(--light-pink);
+      background: rgba(19,85,178,0.3);
+      backdrop-filter: blur(4px);
+      padding: 0.75rem 2rem;
+      border-radius: 60px;
+      border: 2px solid var(--bright-pink);
+      margin-top: 1rem;
+      font-weight: 500;
+    }
+
+    /* ----- CELEBRATION SCREEN (screen 2) ----- */
+    .celebration-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 80vh;
+      background: linear-gradient(145deg, var(--deep-blue) 10%, #b43e7a 90%);
+      border-radius: 40px 0 40px 0;
+      box-shadow: inset 0 0 60px var(--light-pink), 0 20px 30px #0a2b5c;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .birthday-message {
+      font-size: clamp(2.8rem, 12vw, 6rem);
+      font-weight: 900;
+      color: var(--light-pink);
+      text-transform: uppercase;
+      animation: glitter 2s infinite alternate, scaleSoft 2.4s infinite alternate;
+      letter-spacing: 0.1em;
+      text-shadow: 0 0 10px var(--bright-pink), 0 0 40px #ffe6f3;
+    }
+
+    @keyframes glitter {
+      0% { opacity: 0.9; text-shadow: 2px 2px 0 #F5569B; }
+      50% { opacity: 1; text-shadow: -3px -3px 0 #FFCBEB, 3px 3px 0 #F5569B; }
+      100% { opacity: 1; text-shadow: 4px 0 0 #FFCBEB, -4px 0 0 #F5569B; }
+    }
+
+    @keyframes scaleSoft {
+      0% { transform: scale(1) rotate(-1deg); }
+      100% { transform: scale(1.08) rotate(1deg); }
+    }
+
+    /* confetti simulation via decorative pseudo and elements */
+    .confetti-area {
+      position: relative;
+      width: 100%;
+      height: 160px;
+      overflow: hidden;
+      margin: 2rem 0;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 15px;
+      height: 25px;
+      background-color: var(--bright-pink);
+      opacity: 0.6;
+      transform: rotate(25deg);
+      animation: fall 3s linear infinite;
+      border-radius: 0 50% 50% 50%;
+    }
+
+    .confetti:nth-child(2) { left: 20%; width: 12px; height: 20px; background: #FFCBEB; animation-delay: 0.5s; }
+    .confetti:nth-child(3) { left: 50%; width: 20px; height: 30px; background: white; animation-delay: 1s; }
+    .confetti:nth-child(4) { left: 80%; width: 16px; height: 16px; background: #F5569B; animation-delay: 0.2s; }
+    .confetti:nth-child(5) { left: 10%; width: 10px; height: 22px; background: #1355B2; animation-delay: 1.7s; }
+    .confetti:nth-child(6) { left: 90%; width: 25px; height: 15px; background: #FFCBEB; animation-delay: 0.8s; }
+
+    @keyframes fall {
+      0% { top: -30px; transform: rotate(0deg) translateX(0); }
+      100% { top: 180px; transform: rotate(360deg) translateX(30px); }
+    }
+
+    /* ----- GALLERY SCREEN (screen 3) ----- */
+    .gallery-screen {
+      width: 100%;
+      background: var(--light-pink);
+      padding: 2rem 1.5rem;
+      border-radius: 48px 48px 24px 24px;
+      box-shadow: 0 25px 35px -8px #0b2b55;
+    }
+
+    .gallery-title {
+      font-size: 2.5rem;
+      color: var(--deep-blue);
+      text-align: center;
+      margin-bottom: 2rem;
+      font-weight: 600;
+      background: rgba(255,203,235,0.7);
+      display: inline-block;
+      padding: 0.5rem 2rem;
+      border-radius: 60px;
+      backdrop-filter: blur(4px);
+    }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem 1.5rem;
+      justify-items: center;
+    }
+
+    /* gallery card (image container) */
+    .gallery-card {
+      position: relative;
+      width: 100%;
+      max-width: 260px;
+      aspect-ratio: 1 / 1;
+      border-radius: 30px 10px 30px 10px;
+      overflow: hidden;
+      box-shadow: 0 20px 25px -8px var(--deep-blue);
+      transition: var(--transition-default);
+      background: var(--deep-blue);
+      border: 3px solid transparent;
+    }
+
+    .gallery-card:hover, .gallery-card:focus-within {
+      transform: scale(1.03);
+      border-color: var(--bright-pink);
+      box-shadow: 0 0 0 4px var(--light-pink);
+    }
+
+    /* image itself */
+    .card-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      background: var(--bright-pink); /* fallback */
+      transition: filter 0.3s;
+    }
+
+    /* overlay message (hidden by default, appears on hover/focus) */
+    .image-overlay {
+      position: absolute;
+      inset: 0;
+      background: var(--overlay-bg);
+      backdrop-filter: blur(3px);
+      color: var(--light-pink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      padding: 1rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none; /* allows clicking through to keep focus? but we want keyboard to reveal */
+      border-radius: inherit;
+      border: 3px solid var(--bright-pink);
+      text-shadow: 2px 2px 0 var(--deep-blue);
+      word-break: break-word;
+    }
+
+    /* reveal on hover, and also when card gains focus-within (keyboard) */
+    .gallery-card:hover .image-overlay,
+    .gallery-card:focus-within .image-overlay {
+      opacity: 1;
+      pointer-events: auto; /* so that if needed, but we can keep it visible */
+    }
+
+    /* ensure keyboard focus on card is visible */
+    .gallery-card:focus-within {
+      outline: 3px solid var(--bright-pink);
+      outline-offset: 4px;
+    }
+
+    /* ----- FINAL SCREEN (screen 4) ----- */
+    .final-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 70vh;
+      background: var(--deep-blue);
+      border: 8px dashed var(--bright-pink);
+      border-radius: 80px 20px 80px 20px;
+      padding: 3rem 2rem;
+      text-align: center;
+      box-shadow: 0 30px 30px -15px #0b1933;
+    }
+
+    .final-message {
+      font-size: clamp(2rem, 7vw, 4.5rem);
+      color: var(--light-pink);
+      font-weight: 700;
+      line-height: 1.3;
+      background: rgba(245,86,155,0.2);
+      padding: 1.5rem 3rem;
+      border-radius: 120px;
+      border: 2px solid var(--bright-pink);
+      backdrop-filter: blur(4px);
+    }
+
+    .final-message span {
+      display: block;
+      font-size: 2rem;
+      color: var(--bright-pink);
+      font-weight: 400;
+    }
+
+    /* ----- ACCESSIBILITY (prefers reduced motion) ----- */
+    @media (prefers-reduced-motion: reduce) {
+      .timer, .birthday-message, .confetti, .gallery-card, .countdown-screen {
+        animation: none !important;
+        transition: none !important;
+      }
+      .confetti {
+        display: none; /* hide moving pieces */
+      }
+    }
+
+    /* ----- RESPONSIVE TWEAKS ----- */
+    @media (max-width: 560px) {
+      .image-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+      .final-message {
+        padding: 1rem;
+      }
+      .gallery-title {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- screen 1: countdown (visible initially) -->
+    <section id="screen1" class="screen countdown-screen active-screen" aria-labelledby="countdown-heading">
+      <h1 id="countdown-heading" class="visually-hidden">Countdown to birthday surprise</h1>
+      <div class="timer" id="countdownTimer" aria-live="polite" aria-atomic="true">10</div>
+      <div class="countdown-label">seconds to celebration</div>
+      <!-- small note for screen reader -->
+      <p class="visually-hidden">The surprise will begin automatically after countdown.</p>
+    </section>
+
+    <!-- screen 2: celebration (hidden initially) -->
+    <section id="screen2" class="screen celebration-screen hidden-screen" aria-labelledby="celeb-heading">
+      <h2 id="celeb-heading" class="visually-hidden">Celebration message</h2>
+      <div class="birthday-message" aria-live="polite">Happy Birthday ISH!</div>
+      <!-- animated confetti-like pieces -->
+      <div class="confetti-area" aria-hidden="true">
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+      </div>
+      <p style="font-size: 1.5rem; color: #FFCBEB;">✨ many happy returns ✨</p>
+      <!-- hidden hint for keyboard user: tab into later -->
+    </section>
+
+    <!-- screen 3: gallery (hidden initially) -->
+    <section id="screen3" class="screen gallery-screen hidden-screen" aria-labelledby="gallery-heading">
+      <h2 id="gallery-heading" class="gallery-title">🎂 birthday moments 🎂</h2>
+      <div class="image-grid" role="list" aria-label="birthday image gallery with hidden wishes">
+        <!-- each gallery card uses semantic figure? but article is fine -->
+        <!-- card 1 -->
+        <div class="gallery-card" tabindex="0" role="listitem" aria-label="balloon image, hidden message: you rock!">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23F5569B'/%3E%3Ccircle cx='30' cy='35' r='8' fill='%23FFCBEB'/%3E%3C/svg%3E"
+               alt="pink balloon illustration" class="card-image">
+          <div class="image-overlay" aria-hidden="true">⭐ you rock, ISH!</div>
+        </div>
+        <!-- card 2 -->
+        <div class="gallery-card" tabindex="0" role="listitem" aria-label="cake image, hidden message: sweet as cake">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 100 100'%3E%3Crect x='20' y='40' width='60' height='40' fill='%231355B2'/%3E%3Ccircle cx='50' cy='30' r='12' fill='%23FFCBEB'/%3E%3C/svg%3E"
+               alt="birthday cake icon" class="card-image">
+          <div class="image-overlay" aria-hidden="true">🍰 sweet as cake!</div>
+        </div>
+        <!-- card 3 -->
+        <div class="gallery-card" tabindex="0" role="listitem" aria-label="gift image, hidden message: a gift for you">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 100 100'%3E%3Crect x='30' y='30' width='40' height='40' fill='%23F5569B'/%3E%3Crect x='45' y='20' width='10' height='50' fill='%23FFCBEB'/%3E%3C/svg%3E"
+               alt="present box" class="card-image">
+          <div class="image-overlay" aria-hidden="true">🎁 a gift for you</div>
+        </div>
+        <!-- card 4 -->
+        <div class="gallery-card" tabindex="0" role="listitem" aria-label="star image, hidden message: superstar">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 100 100'%3E%3Cpolygon points='50,10 61,40 95,40 68,58 82,90 50,72 18,90 32,58 5,40 39,40' fill='%23FFCBEB'/%3E%3C/svg%3E"
+               alt="shiny star" class="card-image">
+          <div class="image-overlay" aria-hidden="true">🌟 superstar ISH</div>
+        </div>
+        <!-- card 5 -->
+        <div class="gallery-card" tabindex="0" role="listitem" aria-label="confetti image, hidden message: let's party">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 100 100'%3E%3Ccircle cx='30' cy='30' r='6' fill='%23F5569B'/%3E%3Ccircle cx='60' cy='50' r='8' fill='%231355B2'/%3E%3Ccircle cx='75' cy='25' r='10' fill='%23FFCBEB'/%3E%3C/svg%3E"
+               alt="colorful dots" class="card-image">
+          <div class="image-overlay" aria-hidden="true">🎊 let's party!</div>
+        </div>
+        <!-- card 6 -->
+        <div class="gallery-card" tabindex="0" role="listitem" aria-label="heart image, hidden message: loved">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 100 100'%3E%3Cpath d='M50 25 Q35 8 18 25 Q5 40 20 60 L50 85 L80 60 Q95 40 82 25 Q65 8 50 25' fill='%23F5569B'/%3E%3C/svg%3E"
+               alt="heart shape" class="card-image">
+          <div class="image-overlay" aria-hidden="true">💖 loved beyond measure</div>
+        </div>
+      </div>
+      <p class="visually-hidden">use arrow keys and tab to explore images with hidden messages</p>
+    </section>
+
+    <!-- screen 4: final message (hidden initially) -->
+    <section id="screen4" class="screen final-screen hidden-screen" aria-labelledby="final-heading">
+      <h2 id="final-heading" class="visually-hidden">Final birthday wish</h2>
+      <div class="final-message">
+        Best wishes on your special day, ISH!
+        <span>🎈 with love & joy 🎈</span>
+      </div>
+      <!-- optional small note -->
+      <p style="margin-top: 3rem; color: #FFCBEB;">🌟 thank you for celebrating 🌟</p>
+    </section>
+
+    <!-- simple navigation note for screen readers (hidden) -->
+    <div class="visually-hidden" aria-live="polite" id="liveRegion"></div>
+  </div>
+
+  <script>
+    (function() {
+      "use strict";
+
+      // ----- get all screens -----
+      const screen1 = document.getElementById('screen1');
+      const screen2 = document.getElementById('screen2');
+      const screen3 = document.getElementById('screen3');
+      const screen4 = document.getElementById('screen4');
+      const timerEl = document.getElementById('countdownTimer');
+      const liveRegion = document.getElementById('liveRegion');
+
+      // helper to change active screen
+      function showScreen(targetScreen) {
+        // hide all screens by adding hidden-screen class
+        [screen1, screen2, screen3, screen4].forEach(s => {
+          s.classList.add('hidden-screen');
+          s.classList.remove('active-screen');
+        });
+        // show target
+        targetScreen.classList.remove('hidden-screen');
+        targetScreen.classList.add('active-screen');
+        // move focus to target for accessibility (but avoid disorienting)
+        if (targetScreen !== screen1) {
+          targetScreen.setAttribute('tabindex', '-1'); // make programmatically focusable
+          targetScreen.focus({preventScroll: true}); // don't jump, but announce
+        }
+        // update live region polite
+        if (targetScreen === screen2) liveRegion.textContent = 'Celebration screen: Happy birthday ISH';
+        else if (targetScreen === screen3) liveRegion.textContent = 'Image gallery with hidden birthday wishes';
+        else if (targetScreen === screen4) liveRegion.textContent = 'Final birthday message';
+      }
+
+      // ----- countdown logic (10 seconds) -----
+      let counter = 10;
+      timerEl.textContent = counter;
+
+      const countdownInterval = setInterval(() => {
+        counter -= 1;
+        timerEl.textContent = counter;
+
+        // announce change for screen readers (polite)
+        liveRegion.textContent = `countdown ${counter} seconds`;
+
+        if (counter <= 0) {
+          clearInterval(countdownInterval);
+          // after countdown -> celebration screen (screen2)
+          showScreen(screen2);
+
+          // after celebration (4 seconds) -> gallery
+          setTimeout(() => {
+            showScreen(screen3);
+          }, 4000); // 4 seconds to enjoy celebration
+
+          // after gallery (7 seconds) -> final
+          setTimeout(() => {
+            showScreen(screen4);
+          }, 4000 + 7000); // 4s (celeb) + 7s gallery = 11s after celebration start
+        }
+      }, 1000); // 1 sec interval
+
+      // ----- but also allow keyboard / tab navigation to gallery items, no auto-blocking -----
+      // however we want gallery to be fully interactive; hover/focus overlays already work.
+      // We attach extra accessibility: ensure each card can be tabbed and overlay visible on focus
+      // (already done by .gallery-card:focus-within)
+
+      // Additionally, if a user prefers reduced motion, animations are off via media query.
+
+      // preemptively remove any stuck timers if needed (but fine)
+
+      // for extra robustness: if user goes back with keyboard, we don't break flow.
+      // since we have intervals that change screens automatically, we can cancel them?
+      // but we want one consistent flow, no loops. We'll let intervals run as planned.
+      // However if someone wants to restart, not needed for this demo.
+
+      // but there is a hidden case: after final screen, stay there. interval stops automatically (only two timeouts left)
+      // The intervals/timeouts are set. we are good.
+
+      // Example of clearing if needed, but we leave it. it's fine.
+
+      // optional: make gallery cards keyboard friendly – already tabindex="0"
+
+      // also ensure that screen reader can hear message reveal: we have aria-label on card including hidden message.
+      // And overlay is aria-hidden so no double reading.
+
+      // small note: countdown auto-starts. for prefers-reduced-motion, animations disabled.
+
+      // to demonstrate full features, we also initialise an extra listener to reset? no needed.
+      // But we need to cancel transitions if final screen shows earlier? not needed.
+
+      // ----- extra polish: on final screen, stop any remaining timeouts? we could but not harmful.
+      // However, after final, we don't want gallery to reappear. but those timeouts are already set.
+      // We'll store timeouts and clear them if final is shown earlier. But our flow is fixed:
+      // showScreen(screen2) at 0s (countdown finished), then set 4s -> screen3, then 11s total -> screen4.
+      // The timeouts are scheduled. It won't revert.
+      // That's exactly the flow.
+
+      // But if countdown finished early? No, fixed 10 seconds.
+
+      // Edge case: after screen4, no further moves. Perfect.
+
+      // mark initial active screen explicitly as screen1 (already in html)
+      // ensure hidden-screen class is toggled correctly on others: screen2,3,4 currently have hidden-screen.
+      // That's fine.
+
+      // Ensure when screen3 is shown, its cards are interactive. They are.
+
+      // minor: after countdown we clear interval; but two timeouts remain. they will fire.
+    })();
+  </script>
+
+  <!-- brief readme/guidance in html comments (visible in source) -->
+  <!-- 
+    ==========  BIRTHDAY SURPRISE – README ==========
+    Flow: countdown (10s) → celebration (4s) → gallery (7s) → final message.
+    Palette: #1355B2, #FFCBEB, #F5569B.
+    Accessible: semantic sections, aria-labels, keyboard-focusable cards (tab),
+                focus reveals overlay, reduced-motion support.
+    Gallery images are SVGs (placeholders). Replace src with your own.
+    All animations pure CSS, times tuned. No external libraries.
+    Customize messages inside .image-overlay or final-screen.
+    ==================================================
+  -->
+</body>
+</html>

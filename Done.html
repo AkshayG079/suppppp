@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Surprise</title>
+    <!-- Tailwind CSS v3 CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- Google Fonts for styling -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&amp;family=Inter:wght@400;700&amp;family=Montserrat:wght@400;700&amp;display=swap"
+        rel="stylesheet" />
+    <style data-purpose="custom-fonts">
+        .font-script {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .font-sans {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .font-montserrat {
+            font-family: 'Montserrat', sans-serif;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const bokehContainer = document.getElementById('bokeh-container');
+            if (bokehContainer) {
+                const colors = ['#FFCBEB', '#1355B2', '#F5569B'];
+                for (let i = 0; i < 15; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'bokeh-particle';
+                    const size = Math.random() * 60 + 40;
+                    particle.style.width = size + 'px';
+                    particle.style.height = size + 'px';
+                    particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.top = (Math.random() * 50 + 50) + '%';
+                    particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                    particle.style.animationDelay = (Math.random() * 5) + 's';
+                    bokehContainer.appendChild(particle);
+                }
+            }
+
+            const message = document.getElementById('poetic-message');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const words = message.querySelectorAll('span');
+                        words.forEach((word, index) => {
+                            word.style.animationDelay = (index * 0.2) + 's';
+                        });
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            if (message) observer.observe(message);
+        });
+    </script>
+    <style data-purpose="custom-animations">
+        @keyframes pulse-custom {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .pulse-effect {
+            animation: pulse-custom 2s infinite;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #F5569B;
+            top: -20px;
+            animation: fall 3s linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        .hidden-section {
+            display: none;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        @keyframes numberPop {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .number-pop {
+            animation: numberPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes bashPop {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scale(1.5);
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .bash-animation {
+            animation: bashPop 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+
+        .slow-fade-in {
+            animation: fadeIn 6s ease-in-out forwards;
+        }
+
+        @keyframes drift {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.8;
+            }
+
+            90% {
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .heart {
+            position: absolute;
+            color: #F5569B;
+            pointer-events: none;
+            animation: drift linear infinite;
+        }
+
+        .typewriter-text {
+            display: inline-block;
+            overflow: hidden;
+            border-right: .15em solid #F5569B;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .10em;
+            width: 0;
+        }
+
+        .start-typewriter {
+            animation: typing 3.5s steps(40, end) forwards, blink-caret .75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0
+            }
+
+            to {
+                width: 100%
+            }
+        }
+
+        @keyframes blink-caret {
+
+            from,
+            to {
+                border-color: transparent
+            }
+
+            50% {
+                border-color: #F5569B;
+            }
+        }
+
+        .script-font {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .bokeh-particle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(8px);
+            opacity: 0.4;
+            pointer-events: none;
+            animation: drift-bokeh linear infinite;
+        }
+
+        @keyframes drift-bokeh {
+            0% {
+                transform: translate(0, 0);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 0.4;
+            }
+
+            80% {
+                opacity: 0.4;
+            }
+
+            100% {
+                transform: translate(100px, -100vh);
+                opacity: 0;
+            }
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #1355B2, #F5569B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .serif-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .word-reveal span {
+            /* display: inline-block; */
+            /* opacity: 0; */
+            transform: translateY(10px);
+            animation: revealWord 0.5s forwards;
+        }
+
+        @keyframes revealWord {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;display=swap"
+        rel="stylesheet" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        deepBlue: '#1355B2',
+                        lightPink: '#FFCBEB',
+                        brightPink: '#F5569B',
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 3s linear infinite',
+                        'fade-in': 'fadeIn 1s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style data-purpose="typography">
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #000;
+        }
+
+        .vertical-text {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            font-size: 0.6rem;
+            color: #9ca3af;
+            letter-spacing: 0.05em;
+        }
+
+        .header-text {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            color: #9ca3af;
+            text-transform: uppercase;
+        }
+
+        .month-label {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+    </style>
+    <style data-purpose="grid-layout">
+        /* Custom grid to mimic the specific asymmetrical layout of the reference image */
+        /*.masonry-grid {
+                display: grid;
+                grid-template-columns: repeat(12, 1fr);
+                grid-auto-rows: 80px;
+                gap: 0.25rem;
+                max-width: 1200px;
+                margin: auto;
+                padding: 2rem;
+            }*/
+
+        .circular-text {
+            transform: rotate(-57deg);
+            position: absolute;
+            top: 12px;
+            left: 233px;
+            width: 106px;
+            height: 100px;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .circular-text svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Sunflower background illustration */
+        .sunflower-overlay {
+            position: absolute;
+            bottom: -268px;
+            right: -100px;
+            width: 450px;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Grid layout adjustments for the specific masonry look */
+        /* .masonry-grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-auto-rows: minmax(10px, auto);
+        gap: 8px;
+        padding: 0 40px;
+        margin-top: 150px;
+        position: relative;
+        z-index: 10;
+        } */
+        .masonry-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-auto-rows: 80px;
+            gap: 0.25rem;
+            max-width: 1200px;
+            margin: auto;
+            padding: 2rem;
+        }
+
+        /* Styling for the horizontal line after Birthday */
+        .header-line {
+            height: 2px;
+            background-color: black;
+            position: absolute;
+            top: 127px;
+            left: 346px;
+            width: 240px;
+        }
+
+        /* Image wrapper to ensure consistent sizing and desaturated look */
+        .img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: contrast(1.1) brightness(0.9);
+        }
+
+        .img1 {
+            grid-column: 1 / 4;
+            grid-row: 1 / 3;
+        }
+
+        .img2 {
+            grid-column: 4 / 7;
+            grid-row: 1 / 4;
+        }
+
+        .img3 {
+            grid-column: 7 / 11;
+            grid-row: 1 / 3;
+        }
+
+        .img4 {
+            grid-column: 1 / 4;
+            grid-row: 3 / 5;
+        }
+
+        .img5 {
+            grid-column: 4 / 8;
+            grid-row: 2 / 7;
+        }
+
+        .img6 {
+            grid-column: 8 / 11;
+            grid-row: 2 / 4;
+        }
+
+        .img7 {
+            grid-column: 1 / 4;
+            grid-row: 5 / 7;
+        }
+
+        .img8 {
+            grid-column: 8 / 11;
+            grid-row: 5 / 6;
+        }
+
+        .img9 {
+            grid-column: 2 / 4;
+            grid-row: 7 / 9;
+        }
+
+        .img10 {
+            grid-column: 4 / 8;
+            grid-row: 7 / 9;
+        }
+
+        .img11 {
+            grid-column: 8 / 11;
+            grid-row: 7 / 9;
+        }
+
+        /* FEB AREA */
+        .item-feb {
+            grid-column: 2/4;
+            grid-row: 2/3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .item-main-portrait {
+            grid-column: 4/8;
+            grid-row: 2/6;
+        }
+
+        .item-top-right-1 {
+            grid-column: 8/10;
+            grid-row: 2/4;
+        }
+
+        .item-top-right-2 {
+            grid-column: 8/10;
+            grid-row: 4/6;
+        }
+
+        .item-artist-small-1 {
+            grid-column: 2/4;
+            grid-row: 4/6;
+        }
+
+        /* LEFT EDGE IMAGE */
+        .item-edge-left {
+            grid-column: 1/3;
+            grid-row: 6/8;
+        }
+
+        /* SECOND ROW */
+        .item-nude-portrait {
+            grid-column: 3/5;
+            grid-row: 6/8;
+        }
+
+        .item-jan {
+            grid-column: 5/7;
+            grid-row: 6/8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .item-lady-gaga {
+            grid-column: 7/9;
+            grid-row: 6/8;
+        }
+
+        .item-blonde-landscape {
+            grid-column: 9/11;
+            grid-row: 6/8;
+        }
+
+        /* THIRD ROW */
+        .item-man-white-shirt {
+            grid-column: 4/6;
+            grid-row: 8/10;
+        }
+
+        .item-the-weeknd {
+            grid-column: 1/4;
+            grid-row: 8/11;
+        }
+
+        /* LARGE PORTRAIT */
+        .item-craig {
+            grid-column: 6/10;
+            grid-row: 8/12;
+            position: relative;
+        }
+
+        .item-edge-right {
+            grid-column: 10/12;
+            grid-row: 8/10;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        */
+    </style>
+    <style>
+        .masonry-grid>div {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .hover-overlay {
+            position: absolute;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            z-index: 10;
+        }
+
+        .masonry-grid>div:hover .hover-overlay {
+            opacity: 100;
+        }
+
+        .overlay-text {
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border: 1px solid white;
+            padding: 0.5rem 1rem;
+        }
+    </style>
+    <style data-purpose="custom-animations">
+        @keyframes pulse-custom {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .pulse-effect {
+            animation: pulse-custom 2s infinite;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #F5569B;
+            top: -20px;
+            animation: fall 3s linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        .hidden-section {
+            display: none;
+        }
+
+        @keyframes numberPop {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .number-pop {
+            animation: numberPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes bashPop {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scale(1.5);
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .bash-animation {
+            animation: bashPop 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+
+        .slow-fade-in {
+            animation: fadeIn 3s ease-in-out forwards;
+        }
+
+        @keyframes slideUpFade {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-slide-up {
+            animation: slideUpFade 0.8s ease-out forwards;
+        }
+    </style>
+    <style>
+        .hero-gradient {
+            background: linear-gradient(120deg, #1355B2, #F5569B, #FFCBEB);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glow-text {
+            text-shadow: 0 5px 25px rgba(245, 86, 155, 0.3);
+        }
+    </style>
+</head>
+
+<body class=" font-sans overflow-x-hidden">
+
+
+    <!-- BEGIN: IntroCountdownScreen -->
+    <section class="fixed inset-0 z-50 flex flex-col items-center justify-center text-white bg-white"
+        data-purpose="countdown-container" id="intro-screen">
+        <div class="text-center">
+            <h2 class="text-2xl uppercase tracking-widest mb-4 opacity-80 text-deepBlue transition-opacity duration-500"
+                id="status-message">Get Ready...</h2>
+            <div aria-live="polite"
+                class="text-9xl font-black text-brightPink opacity-0 transition-opacity duration-500"
+                id="countdown-number">5</div>
+            <div class="hidden fixed inset-0 flex items-center justify-center bg-white z-[60]" id="bash-screen">
+                <h1 class="text-6xl md:text-9xl font-black text-brightPink bash-animation">BIRTHDAY BASH!</h1>
+            </div>
+        </div>
+    </section>
+    <!-- END: IntroCountdownScreen -->
+    <!-- BEGIN: MainContent -->
+    <main class="hidden-section opacity-0 transition-opacity duration-1000" id="main-content">
+        <!-- BEGIN: CelebrationHeader -->
+        <section
+            class="relative min-h-screen flex flex-center flex-col items-center justify-center text-center p-6 bg-gradient-to-b from-lightPink to-white overflow-hidden"
+            data-purpose="hero-celebration">
+            <!-- Confetti Container -->
+            <div class="absolute inset-0 pointer-events-none" id="confetti-wrapper"></div>
+            <div class="z-10 animate-fade-in">
+
+                <h1 class="text-6xl md:text-8xl font-serif font-bold text-deepBlue mb-6 tracking-tight leading-tight">
+                    <span class="hero-gradient">Happy Birthday</span>
+                    <span class="font-script text-brightPink text-7xl md:text-9xl block mt-2 glow-text">
+                        ISHIKA
+                    </span>
+                </h1>
+
+                <p class="text-lg md:text-2xl text-gray-600 font-light max-w-xl mx-auto tracking-wide leading-relaxed">
+                    Today is all about you.
+                    <br>
+                    Your smile, your kindness and the warmth you bring to everyone around you
+                    make this world a better place.
+                </p>
+                <div class="mt-10 animate-bounce-slow">
+                    <svg class="w-12 h-12 text-brightPink mx-auto" fill="none" stroke="currentColor"
+                        viewbox="0 0 24 24">
+                        <path d="Step 19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                        </path>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- BEGIN: MainContent -->
+        <section class="relative">
+            <main class="collage-container" data-purpose="main-layout">
+                <!-- Sunflower Background -->
+                <img alt="Sunflower Background" class="sunflower-overlay"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqnJEi2dBzhukV2iDpNSdJfofx7_muZk_a6afp6JieIh18lcjJhozUc_qVNiX_RJJODmPSPHXJS9KGhM8C8sAtUufwnkRzs_F_5C-CfdfHI2-VuTkQpWYjQoUqmSsBBnSTWdFitWSHgW_-q8WR8y6Ky08hpUr4Uv1c5_K6NI2kJ60f4MYsyPnvlHLOwYZoETz-RTNxAj5oSIzHdFGqff4HmJa_CNf85q_B3yQYQgCKS9luA49D3XhHnF880_CovirpX2uVR-G9z-I" />
+                <!-- BEGIN: HeaderSection -->
+                <section class="absolute -top-40 left-10 z-20">
+                    <!-- Circular Badge -->
+                    <div class="circular-text">
+                        <svg viewbox="0 0 100 100">
+                            <path d="M 10, 50 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" fill="transparent"
+                                id="circlePath">
+                            </path>
+                            <text>
+                                <textpath href="#circlePath" startoffset="50%" text-anchor="middle">
+                                    IT'S YOUR DAY!
+                                </textpath>
+                            </text>
+                        </svg>
+                    </div>
+                    <!-- Main Title -->
+                    <div class="mt-8 ml-10">
+                        <h1 class="text-6xl font-script leading-none text-black">Happy</h1>
+                        <h1 class="text-7xl font-script leading-none text-black ml-12 -mt-4">Birthday</h1>
+                    </div>
+                    <!-- Decorative Line -->
+                    <div class="header-line"></div>
+                </section>
+                <!-- END: HeaderSection -->
+                <!-- BEGIN: PhotoGrid -->
+                <!-- Arranged in a 12-column grid to allow for staggered positioning -->
+                <section class="masonry-grid my-44" data-purpose="photo-grid">
+                    <!-- Top Row -->
+                    <div class="img-box img1 h-36 mt-4">
+                        <img alt="Portrait 1" src="./pic/image4.jpg" />
+                    </div>
+                    <div class="img-box img2 h-40 ">
+                        <img alt="Portrait 2" src="./pic/image1.jpg" />
+                    </div>
+                    <div class="img-box img3 h-36 mt-4 ">
+                        <img alt="Portrait 3" src="./pic/image5.jpg" />
+                    </div>
+                    <!-- Middle Area -->
+                    <div class="img-box img4 row-start-3 h-40 ">
+                        <img alt="Portrait 4" src="./pic/image13.jpg" />
+                    </div>
+                    <!-- Center Large Image -->
+                    <div class="img-box row-start-3 img5 h-68 ">
+                        <img alt="Portrait 5" src="./pic/image3.jpg" />
+                    </div>
+                    <div class="img-box row-start-3 img6 h-40 ">
+                        <img alt="Portrait 6" src="./pic/image6.jpg" />
+                    </div>
+                    <!-- Bottom Cluster Left -->
+                    <div class="img-box img7 h-40 ">
+                        <img alt="Portrait 7" src="./pic/image7.jpg" />
+                    </div>
+                    <div class="img-box img8 h-40 ">
+                        <img alt="Portrait 8" src="./pic/image8.jpg" />
+                    </div>
+                    <!-- Bottom Row -->
+                    <div class="img-box img9 h-32 ">
+                        <img alt="Portrait 9" src="./pic/image9.jpg" />
+                    </div>
+                    <div class="img-box img10 h-36 ">
+                        <img alt="Portrait 10" src="./pic/image10.jpg" />
+                    </div>
+                    <div class="img-box img11 h-28 ">
+                        <img alt="Portrait 11" src="./pic/image11.jpg" />
+                    </div>
+                </section>
+                <!-- END: PhotoGrid -->
+                <!-- BEGIN: FooterSection -->
+                <footer class="absolute -bottom-12 right-10 text-right z-20 max-w-[320px]">
+                    <h2 class="font-montserrat font-bold text-2xl text-black tracking-tight">10 March 2026</h2>
+                    <p class="mt-4 text-[10px] text-black leading-relaxed font-sans">
+                        "Some people come into our lives and make everything brighter — you are one of those rare
+                        people. Your presence brings happiness, your smile spreads positivity and your heart is truly
+                        beautiful. I hope this year gives you everything you've been wishing for and more. ."
+                    </p>
+                </footer>
+                <!-- END: FooterSection -->
+            </main>
+        </section>
+        <!-- END: MainContent -->
+
+        <!-- BEGIN: FinalScreen -->
+        <footer class="relative py-48 px-6 bg-white text-center overflow-hidden" data-purpose="closing-message">
+            <div class="absolute inset-0 pointer-events-none" id="bokeh-container"></div>
+            <div class="relative max-w-4xl mx-auto z-10">
+                <h2 class="text-3xl md:text-4xl serif-font italic text-deepBlue/60 mb-12 tracking-wide">To Ishika,</h2>
+                <div class="mb-16">
+                    <h3 class="text-4xl md:text-6xl serif-font font-bold leading-tight gradient-text word-reveal text-brightPink"
+                        id="poetic-message">
+                        <span></span> <span>May</span> <span>your</span> <span>journey</span> <span>be</span>
+                        <span>as</span>
+                        <span>bright</span>
+                        <span>as</span> <span>your</span> <span>smile</span> <span>and</span> <span>as</span>
+                        <span>beautiful</span>
+                        <span>as</span> <span>your</span> <span></span><span>heart.</span>
+                    </h3>
+                </div>
+                <div class="w-24 h-px bg-gradient-to-r from-deepBlue to-brightPink mx-auto opacity-30"></div>
+                <button
+                    class="px-8 py-3 rounded-full bg-gradient-to-r from-brightPink to-deepBlue text-white font-semibold shadow-lg hover:scale-105 transition duration-300"
+                    onclick="window.location.href='https://digibouquet.vercel.app/bouquet/7f4a774e-59bf-4d65-ad9e-f2e7251b4fd1'">
+                    One More Surprise
+                </button>
+            </div>
+        </footer>
+        <!-- END: FinalScreen -->
+    </main>
+    <!-- END: MainContent -->
+    <script data-purpose="logic-handler">
+        document.addEventListener('DOMContentLoaded', () => {
+            const countdownElement = document.getElementById('countdown-number');
+            const statusMessage = document.getElementById('status-message');
+            const introScreen = document.getElementById('intro-screen');
+            const bashScreen = document.getElementById('bash-screen');
+            const mainContent = document.getElementById('main-content');
+
+            let count = 5;
+
+            // Initial 5-second delay before countdown starts
+            setTimeout(() => {
+                statusMessage.textContent = 'Get Ready for a Surprise';
+                countdownElement.classList.remove('opacity-0');
+                countdownElement.classList.add('number-pop');
+
+                const timer = setInterval(() => {
+                    count--;
+                    if (count > 0) {
+                        countdownElement.classList.remove('number-pop');
+                        void countdownElement.offsetWidth;
+                        countdownElement.textContent = count;
+                        countdownElement.classList.add('number-pop');
+                    } else {
+                        clearInterval(timer);
+                        triggerBash();
+                    }
+                }, 1000);
+            }, 5000);
+
+            function triggerBash() {
+                // Hide countdown elements
+                statusMessage.style.opacity = '0';
+                countdownElement.style.opacity = '0';
+
+                setTimeout(() => {
+                    bashScreen.classList.remove('hidden');
+                    createConfetti(); // Start confetti during bash
+
+                    setTimeout(() => {
+                        startCelebration();
+                    }, 2500); // Duration of the Bash screen
+                }, 500);
+            }
+
+            function startCelebration() {
+                introScreen.style.transition = 'opacity 1.5s ease';
+                introScreen.style.opacity = '0';
+
+                setTimeout(() => {
+                    introScreen.style.display = 'none';
+                    mainContent.classList.remove('hidden-section');
+                    mainContent.classList.add('slow-fade-in');
+                    setTimeout(() => {
+                        mainContent.classList.replace('opacity-0', 'opacity-100');
+                    }, 50);
+                }, 1500);
+            }
+
+            function createConfetti() {
+                const wrapper = document.getElementById('confetti-wrapper');
+                const colors = ['#1355B2', '#FFCBEB', '#F5569B', '#FFFFFF'];
+
+                for (let i = 0; i < 150; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti-piece';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                    confetti.style.animationDelay = (Math.random() * 5) + 's';
+                    confetti.style.opacity = Math.random();
+                    wrapper.appendChild(confetti);
+                }
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const bokehContainer = document.getElementById('bokeh-container');
+            if (bokehContainer) {
+                const colors = ['#FFCBEB', '#1355B2', '#F5569B'];
+                for (let i = 0; i < 15; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'bokeh-particle';
+                    const size = Math.random() * 60 + 40;
+                    particle.style.width = size + 'px';
+                    particle.style.height = size + 'px';
+                    particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.top = (Math.random() * 50 + 50) + '%';
+                    particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                    particle.style.animationDelay = (Math.random() * 5) + 's';
+                    bokehContainer.appendChild(particle);
+                }
+            }
+
+            const message = document.getElementById('poetic-message');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const words = message.querySelectorAll('span');
+                        words.forEach((word, index) => {
+                            word.style.animationDelay = (index * 0.2) + 's';
+                        });
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            if (message) observer.observe(message);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&amp;display=swap" rel="stylesheet" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Happy Birthday ISH!</title>
+  <!-- Tailwind CSS v3 CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const bokehContainer = document.getElementById('bokeh-container');
+      if (bokehContainer) {
+        const colors = ['#FFCBEB', '#1355B2', '#F5569B'];
+        for (let i = 0; i < 15; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'bokeh-particle';
+          const size = Math.random() * 60 + 40;
+          particle.style.width = size + 'px';
+          particle.style.height = size + 'px';
+          particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+          particle.style.left = Math.random() * 100 + '%';
+          particle.style.top = (Math.random() * 50 + 50) + '%';
+          particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+          particle.style.animationDelay = (Math.random() * 5) + 's';
+          bokehContainer.appendChild(particle);
+        }
+      }
+
+      const message = document.getElementById('poetic-message');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const words = message.querySelectorAll('span');
+            words.forEach((word, index) => {
+              word.style.animationDelay = (index * 0.2) + 's';
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      if (message) observer.observe(message);
+    });
+  </script>
+  <style data-purpose="custom-animations">
+    @keyframes pulse-custom {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.1);
+      }
+    }
+
+    .pulse-effect {
+      animation: pulse-custom 2s infinite;
+    }
+
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #F5569B;
+      top: -20px;
+      animation: fall 3s linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+      }
+    }
+
+    .hidden-section {
+      display: none;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    @keyframes numberPop {
+      0% {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .number-pop {
+      animation: numberPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    @keyframes bashPop {
+      0% {
+        transform: scale(0);
+        opacity: 0;
+      }
+
+      50% {
+        transform: scale(1.5);
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .bash-animation {
+      animation: bashPop 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+    }
+
+    .slow-fade-in {
+      animation: fadeIn 6s ease-in-out forwards;
+    }
+
+    @keyframes drift {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 0.8;
+      }
+
+      90% {
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .heart {
+      position: absolute;
+      color: #F5569B;
+      pointer-events: none;
+      animation: drift linear infinite;
+    }
+
+    .typewriter-text {
+      display: inline-block;
+      overflow: hidden;
+      border-right: .15em solid #F5569B;
+      white-space: nowrap;
+      margin: 0 auto;
+      letter-spacing: .10em;
+      width: 0;
+    }
+
+    .start-typewriter {
+      animation: typing 3.5s steps(40, end) forwards, blink-caret .75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from {
+        width: 0
+      }
+
+      to {
+        width: 100%
+      }
+    }
+
+    @keyframes blink-caret {
+
+      from,
+      to {
+        border-color: transparent
+      }
+
+      50% {
+        border-color: #F5569B;
+      }
+    }
+
+    .script-font {
+      font-family: 'Dancing Script', cursive;
+    }
+
+    .bokeh-particle {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(8px);
+      opacity: 0.4;
+      pointer-events: none;
+      animation: drift-bokeh linear infinite;
+    }
+
+    @keyframes drift-bokeh {
+      0% {
+        transform: translate(0, 0);
+        opacity: 0;
+      }
+
+      20% {
+        opacity: 0.4;
+      }
+
+      80% {
+        opacity: 0.4;
+      }
+
+      100% {
+        transform: translate(100px, -100vh);
+        opacity: 0;
+      }
+    }
+
+    .gradient-text {
+      background: linear-gradient(to right, #1355B2, #F5569B);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .serif-font {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .word-reveal span {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: revealWord 0.5s forwards;
+    }
+
+    @keyframes revealWord {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;display=swap"
+    rel="stylesheet" />
+</head>
+
+<body class="bg-lightPink font-sans overflow-x-hidden">
+  <!-- BEGIN: IntroCountdownScreen -->
+  <section class="fixed inset-0 z-50 flex flex-col items-center justify-center text-white bg-white"
+    data-purpose="countdown-container" id="intro-screen">
+    <div class="text-center">
+      <h2 class="text-2xl uppercase tracking-widest mb-4 opacity-80 text-deepBlue transition-opacity duration-500"
+        id="status-message">Get Ready...</h2>
+      <div aria-live="polite" class="text-9xl font-black text-brightPink opacity-0 transition-opacity duration-500"
+        id="countdown-number">5</div>
+      <div class="hidden fixed inset-0 flex items-center justify-center bg-white z-[60]" id="bash-screen">
+        <h1 class="text-6xl md:text-9xl font-black text-brightPink bash-animation">BIRTHDAY BASH!</h1>
+      </div>
+    </div>
+  </section>
+  <!-- END: IntroCountdownScreen -->
+  <!-- BEGIN: MainContent -->
+  <main class="hidden-section opacity-0 transition-opacity duration-2000" id="main-content">
+    <!-- BEGIN: CelebrationHeader -->
+    <section
+      class="relative min-h-screen flex flex-center flex-col items-center justify-center text-center p-6 bg-gradient-to-b from-lightPink to-white overflow-hidden"
+      data-purpose="hero-celebration">
+      <!-- Confetti Container -->
+      <div class="absolute inset-0 pointer-events-none" id="confetti-wrapper"></div>
+      <div class="z-10 animate-fade-in">
+        <h1 class="text-6xl md:text-8xl font-black text-deepBlue mb-4 drop-shadow-md">
+          Happy Birthday <span class="text-brightPink">ISH!</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-deepBlue font-medium max-w-2xl mx-auto">
+          Today is all about you! Let's celebrate another amazing year.
+        </p>
+        <div class="mt-10 animate-bounce-slow">
+          <svg class="w-12 h-12 text-brightPink mx-auto" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+            <path d="Step 19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+          </svg>
+        </div>
+      </div>
+    </section>
+    <!-- END: CelebrationHeader -->
+    <!-- BEGIN: ImageGallery -->
+    <section class="py-20 px-4 md:px-10 bg-white" data-purpose="memory-gallery">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-4xl font-bold text-center text-deepBlue mb-12">Wrapped with Love</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- To customize: Replace 'https://placehold.co/600x600' with your actual image URLs -->
+          <!-- Gallery Item 1 -->
+          <div
+            class="gallery-item relative overflow-hidden rounded-2xl shadow-xl group cursor-pointer focus-within:ring-4 focus-within:ring-brightPink"
+            tabindex="0">
+            <img alt="Birthday memory 1"
+              class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJzKavReBTTCLWyeMUPBi-G2iOWf-qejVB_fMAL5TUjy-jZo7iL-IMiNcTi-dgOA2l_XkVbQ3qGqU9RzqjSP4KddOReylcY3GnX8Rcx-24zV8Z21WrUK_Q_-rlGhupIAYsMvfckv7melyn7d1_2JF2WvgPIhjBPZVtOWy9_hvm8hqxtbTBQlTC8tcfAkyLBD54rV5qN8ET78i-ULiwSGNuYZikhf73tJFOMoVpr62ocVKuxetc22Jwyih3dCVHj2xLvwmDf5SeJkE" />
+            <div
+              class="gallery-overlay absolute inset-0 bg-brightPink/90 opacity-0 transition-opacity duration-300 flex items-center justify-center p-6 text-center">
+              <p class="text-white font-bold text-xl">The best times are always spent with you!</p>
+            </div>
+          </div>
+          <!-- Gallery Item 2 -->
+          <div
+            class="gallery-item relative overflow-hidden rounded-2xl shadow-xl group cursor-pointer focus-within:ring-4 focus-within:ring-brightPink"
+            tabindex="0">
+            <img alt="Birthday memory 2"
+              class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvQ-k9jvNu7s22_xItiiOb6vHGe671lN7BaF2DEYCTnot4PVIwMyxl-7LS4xjWzb2C5rwY01arERPbQBhBz9redIGwS-5h-yiWlWOQ4Vlhen3MtFFzVMJ2Y1-_dmTnFNjMCYOVADgr6DBddFUdM7VFm6CH0u89C0r1zElCqLycNwOGqF9cn2smBCoIE2A1iSa4CfewrJ7rCASeJlQE19YN_LVGg6P4zFHQt1pPtYjDdkG7qB3MptPyHFNNKkA52H_eyzTA2njstfA" />
+            <div
+              class="gallery-overlay absolute inset-0 bg-deepBlue/90 opacity-0 transition-opacity duration-300 flex items-center justify-center p-6 text-center">
+              <p class="text-white font-bold text-xl">Keep shining bright like the star you are.</p>
+            </div>
+          </div>
+          <!-- Gallery Item 3 -->
+          <div
+            class="gallery-item relative overflow-hidden rounded-2xl shadow-xl group cursor-pointer focus-within:ring-4 focus-within:ring-brightPink"
+            tabindex="0">
+            <img alt="Birthday memory 3"
+              class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAr3oVzzF51lWaeF5rwbMUgfli0v8kTk-DLVoOQzGTYuFRFIUPFNlFPnfAWC7_aJPby56m7hHyh30B5N04wLiaf_G6lGRluFnrMrLCjvt8XW44pXnFIBbhaloZC8RJ-Mzh6lor4pz0hUSR88h1E63yPhNDuibk9_iUoFyJoIOdEtUGJH6IP-7mYTtLRv__vubp2FUCXUiCAnvI0fe8XqfE9Vgsa2WI-1aFgaNqeG5ZmLfJymxuOpE8aO42C1OyhYLUnvwU6bktWHPA" />
+            <div
+              class="gallery-overlay absolute inset-0 bg-brightPink/90 opacity-0 transition-opacity duration-300 flex items-center justify-center p-6 text-center">
+              <p class="text-white font-bold text-xl">Cheers to many more adventures together!</p>
+            </div>
+          </div>
+          <!-- Gallery Item 4 -->
+          <div
+            class="gallery-item relative overflow-hidden rounded-2xl shadow-xl group cursor-pointer focus-within:ring-4 focus-within:ring-brightPink"
+            tabindex="0">
+            <img alt="Birthday memory 4"
+              class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAS5QSxtDhmMdcMtRUPHbmUb44i8BfxeMOxteIJuxv0Qv7HJWW3TzdK497FWNgF-pjtcc3vumjnByRxUa13_iEwxPPBM_qnqcyAxNNLNYDvZeOqIpqbWXScF-mOpNsidJi5C75jn2XtuDTzrhOo89KSCoz_5VyHb-1z_iqXVzlPGkWcE8tzsgDuZ4C8D6XfqRxGBktirY7T8z8z_eeMP1-iu5DaOG6lZcALg6eaYWPByq7ApR_qVfgmdHBBOTqrZS2NTvZWa7q1EcQ" />
+            <div
+              class="gallery-overlay absolute inset-0 bg-deepBlue/90 opacity-0 transition-opacity duration-300 flex items-center justify-center p-6 text-center">
+              <p class="text-white font-bold text-xl">You make every single day better.</p>
+            </div>
+          </div>
+          <!-- Gallery Item 5 -->
+          <div
+            class="gallery-item relative overflow-hidden rounded-2xl shadow-xl group cursor-pointer focus-within:ring-4 focus-within:ring-brightPink"
+            tabindex="0">
+            <img alt="Birthday memory 5"
+              class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNkcTJtjOeO-3-anVLKJbOLcQrGW8g4pGd13j4DCZjwxGRQYCApUnkhas3bc54Jrk-G4c-18OPGEYv3O8Ez2-m-iER8nu5ABQqLIUJ3ijni9Hp9z5Qs-VoiWeL1YtkIG4wFSZh3Pojq6189LLIZqxnFkziVwTM0TCnWvyNA0IxA3qN1t0DyPMflKbsLGQmUqRj95QK1kxF2QYmqhlEz-12mVcE8Xkuos-jc-YWDppJIBayAFf694dpSm3qtpPPploZ7LiJ0lVtUZA" />
+            <div
+              class="gallery-overlay absolute inset-0 bg-brightPink/90 opacity-0 transition-opacity duration-300 flex items-center justify-center p-6 text-center">
+              <p class="text-white font-bold text-xl">To another year of growth and happiness.</p>
+            </div>
+          </div>
+          <!-- Gallery Item 6 -->
+          <div
+            class="gallery-item relative overflow-hidden rounded-2xl shadow-xl group cursor-pointer focus-within:ring-4 focus-within:ring-brightPink"
+            tabindex="0">
+            <img alt="Birthday memory 6"
+              class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiZ5WYqtSXb1BjmOz2wLmSyonLT5ioJdVKvPyCj_G2bQxXb86ZGoF4-sKVJKiuDfn0OCuBobIYbks0fJCxOUGo37EpuZ8W_fefj4_ddYoGRlF2ubGAqAQbyle3AYmm09qMRADsGQlLWcOsOS5s0Bao8kaZWkUK5_I8rzqD-nFPbwT7E-SZHZSz8pvZSaNXjJMwVBXMaqcEIsR5on9DFvcZ7BLrJYbEWE9012AC9_zCYkrIL-vxQjAgadZqIFkevpnEBygmbs40BZ4" />
+            <div
+              class="gallery-overlay absolute inset-0 bg-deepBlue/90 opacity-0 transition-opacity duration-300 flex items-center justify-center p-6 text-center">
+              <p class="text-white font-bold text-xl">Happy Birthday to my favorite person!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- END: ImageGallery -->
+    <!-- BEGIN: FinalScreen -->
+    <footer class="relative py-48 px-6 bg-white text-center overflow-hidden" data-purpose="closing-message">
+      <div class="absolute inset-0 pointer-events-none" id="bokeh-container"></div>
+      <div class="relative max-w-4xl mx-auto z-10">
+        <h2 class="text-3xl md:text-4xl serif-font italic text-deepBlue/60 mb-12 tracking-wide">To Ish,</h2>
+        <div class="mb-16">
+          <h3 class="text-4xl md:text-6xl serif-font font-bold leading-tight gradient-text word-reveal"
+            id="poetic-message">
+            <span>May</span> <span>your</span> <span>journey</span> <span>be</span> <span>as</span> <span>bright</span>
+            <span>as</span> <span>your</span> <span>smile</span> <span>and</span> <span>as</span> <span>beautiful</span>
+            <span>as</span> <span>your</span> <span>heart.</span>
+          </h3>
+        </div>
+        <div class="w-24 h-px bg-gradient-to-r from-deepBlue to-brightPink mx-auto opacity-30"></div>
+      </div>
+    </footer>
+    <!-- END: FinalScreen -->
+  </main>
+  <!-- END: MainContent -->
+  <script data-purpose="logic-handler">
+    document.addEventListener('DOMContentLoaded', () => {
+      const countdownElement = document.getElementById('countdown-number');
+      const statusMessage = document.getElementById('status-message');
+      const introScreen = document.getElementById('intro-screen');
+      const bashScreen = document.getElementById('bash-screen');
+      const mainContent = document.getElementById('main-content');
+
+      let count = 5;
+
+      // Initial 5-second delay before countdown starts
+      setTimeout(() => {
+        statusMessage.textContent = 'Get Ready for a Surprise';
+        countdownElement.classList.remove('opacity-0');
+        countdownElement.classList.add('number-pop');
+
+        const timer = setInterval(() => {
+          count--;
+          if (count > 0) {
+            countdownElement.classList.remove('number-pop');
+            void countdownElement.offsetWidth;
+            countdownElement.textContent = count;
+            countdownElement.classList.add('number-pop');
+          } else {
+            clearInterval(timer);
+            triggerBash();
+          }
+        }, 1000);
+      }, 5000);
+
+      function triggerBash() {
+        // Hide countdown elements
+        statusMessage.style.opacity = '0';
+        countdownElement.style.opacity = '0';
+
+        setTimeout(() => {
+          bashScreen.classList.remove('hidden');
+          createConfetti(); // Start confetti during bash
+
+          setTimeout(() => {
+            startCelebration();
+          }, 5000); // DOUBLED: Duration of the Bash screen from 2.5s to 5s
+        }, 500);
+      }
+
+      function startCelebration() {
+        introScreen.style.transition = 'opacity 3s ease'; // DOUBLED: Transition duration from 1.5s to 3s
+        introScreen.style.opacity = '0';
+
+        setTimeout(() => {
+          introScreen.style.display = 'none';
+          mainContent.classList.remove('hidden-section');
+          mainContent.classList.add('slow-fade-in');
+          setTimeout(() => {
+            mainContent.classList.replace('opacity-0', 'opacity-100');
+          }, 50);
+        }, 3000); // DOUBLED: Delay before hiding intro from 1.5s to 3s
+      }
+
+      function createConfetti() {
+        const wrapper = document.getElementById('confetti-wrapper');
+        const colors = ['#1355B2', '#FFCBEB', '#F5569B', '#FFFFFF'];
+
+        for (let i = 0; i < 150; i++) {
+          const confetti = document.createElement('div');
+          confetti.className = 'confetti-piece';
+          confetti.style.left = Math.random() * 100 + 'vw';
+          confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+          confetti.style.animationDuration = (Math.random() * 2 + 3) + 's';
+          confetti.style.animationDelay = (Math.random() * 5) + 's';
+          confetti.style.opacity = Math.random();
+          wrapper.appendChild(confetti);
+        }
+      }
+    });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const bokehContainer = document.getElementById('bokeh-container');
+      if (bokehContainer) {
+        const colors = ['#FFCBEB', '#1355B2', '#F5569B'];
+        for (let i = 0; i < 15; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'bokeh-particle';
+          const size = Math.random() * 60 + 40;
+          particle.style.width = size + 'px';
+          particle.style.height = size + 'px';
+          particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+          particle.style.left = Math.random() * 100 + '%';
+          particle.style.top = (Math.random() * 50 + 50) + '%';
+          particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+          particle.style.animationDelay = (Math.random() * 5) + 's';
+          bokehContainer.appendChild(particle);
+        }
+      }
+
+      const message = document.getElementById('poetic-message');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const words = message.querySelectorAll('span');
+            words.forEach((word, index) => {
+              word.style.animationDelay = (index * 0.2) + 's';
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      if (message) observer.observe(message);
+    });
+  </script>
+</body>
+
+</html>
